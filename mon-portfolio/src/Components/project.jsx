@@ -64,7 +64,7 @@ const projects = [
 
 function Projects() {
   return (
-    <section id="projects" className="py-20 bg-gray-100 dark:bg-dark-900">
+    <section id="projects" className="">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-16">
           Mes <span className="text-primary-600 dark:text-primary-400">Projets Réalisés</span>

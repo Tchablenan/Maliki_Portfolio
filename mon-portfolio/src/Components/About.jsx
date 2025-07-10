@@ -4,7 +4,7 @@ import malikiImage from '../assets/maliki.jpg';
 
 function AboutSection() {
   return (
-    <section id="about" className="py-16 bg-gray-50 dark:bg-gray-800">
+    <section id="about" className="">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-12">
           À propos <span className="text-primary-600 dark:text-primary-400">de moi</span>

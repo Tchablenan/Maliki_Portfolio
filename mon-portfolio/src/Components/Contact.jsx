@@ -44,7 +44,7 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-dark-800 sections" >
+    <section id="contact" className="" >
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-12">
           Me <span className="text-primary-600 dark:text-primary-400">contacter</span>
