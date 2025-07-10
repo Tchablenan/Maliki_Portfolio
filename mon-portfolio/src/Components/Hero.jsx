@@ -31,7 +31,7 @@ function Hero() {
         <div className="md:w-1/2 mb-12 md:mb-0">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
            Bienvenu, je suis</h1> 
-           <h2 className='text-xl md:text-6xl font-bold mb-4'> <span className="text-primary-600 dark:text-primary-400 py-20" >  Djandjieme Otiebouame Maliki</span></h2>
+           <h2 className='text-xl md:text-6xl font-bold mb-4'> <span className="text-primary-600 dark:text-primary-400 py-20" >  Djandjieme Otieboame Maliki</span></h2>
           
                   <h2 className="text-2xl md:text-3xl font-semibold mb-6">
             <span 
