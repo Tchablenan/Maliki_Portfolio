@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [react(),
      tailwindcss(),
   ],
+  build: {
+    outDir: 'dist',
+  },
     // Pour le bon routing sur Vercel
   server: {
     host: true,
