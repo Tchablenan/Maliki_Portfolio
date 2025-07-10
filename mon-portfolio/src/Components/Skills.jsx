@@ -62,7 +62,7 @@ function Skills() {
             <button
               key={key}
               onClick={() => setSelectedCategory(key)}
-              className={`px-4 py-2 rounded-lg border text-sm transition-colors ${
+              className={`px-4 py-2 rounded-lg border text-white text-sm transition-colors ${
                 selectedCategory === key
                   ? 'bg-primary-600 text-white'
                   : 'border-gray-300 hover:bg-gray-100 dark:border-dark-700 dark:hover:bg-dark-700'

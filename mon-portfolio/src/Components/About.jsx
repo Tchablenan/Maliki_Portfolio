@@ -1,16 +1,17 @@
 // src/components/AboutSection.jsx
 import React from 'react';
-import malikiImage from '../assets/maliki.jpg'; // Adjust the path as necessary
+import malikiImage from '../assets/maliki.jpg';
+
 function AboutSection() {
   return (
     <section id="about" className="py-16 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-12">
-          About <span className="text-primary-600 dark:text-primary-400">Me</span>
+          À propos <span className="text-primary-600 dark:text-primary-400">de moi</span>
         </h2>
 
         <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* About image */}
+          {/* Image de Maliki */}
           <div className="md:w-1/3 flex justify-center">
             <div className="relative w-64 h-64">
               <div className="absolute -inset-4 bg-primary-500 rounded-2xl -rotate-6"></div>
@@ -22,47 +23,49 @@ function AboutSection() {
             </div>
           </div>
 
-          {/* About content */}
+          {/* Texte */}
           <div className="md:w-2/3">
-            <h3 className="text-2xl font-semibold mb-4">Who am I?</h3>
+            <h3 className="text-2xl font-semibold mb-4">Qui suis-je ?</h3>
             <p className="mb-4 text-gray-700 dark:text-gray-300">
-              I'm a passionate geotechnical engineer with a focus on creating
-              sustainable solutions in infrastructure and urban development. I
-              specialize in geotechnical analysis, geo-environmental solutions, and
-              urban infrastructure innovations.
+              Je suis ingénieur géotechnicien, spécialisé en infrastructures urbaines et
+              en solutions géo-environnementales. Mon parcours m’a conduit du Togo au Japon,
+              avec une thèse doctorale axée sur la stabilisation des sols par matériaux recyclés.
             </p>
             <p className="mb-6 text-gray-700 dark:text-gray-300">
-              With a background in geotechnical engineering and a PhD in the field, I
-              have extensive experience in designing and implementing innovative and
-              sustainable infrastructure projects. I believe in using cutting-edge
-              technologies and approaches to create resilient, eco-friendly solutions.
+              À travers mes missions au sein de projets de coopération (JICA, EDF), j’ai acquis
+              une expertise terrain dans les domaines de la réhabilitation routière, de la gestion
+              des risques géotechniques, de l’environnement et du développement durable. Je suis
+              passionné par la recherche appliquée et l’innovation au service des infrastructures
+              résilientes et écoresponsables.
             </p>
 
-            {/* Values */}
+            {/* Valeurs */}
             <div className="mb-8">
-              <h4 className="text-xl font-semibold mb-3">My Values</h4>
+              <h4 className="text-xl font-semibold mb-3">Mes valeurs</h4>
               <div className="flex flex-wrap gap-3">
                 <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm">
-                  Clean Code
+                  Intégrité scientifique
                 </span>
                 <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm">
-                  User Experience
+                  Innovation durable
                 </span>
                 <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm">
-                  Accessibility
+                  Transfert de savoir
                 </span>
                 <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm">
-                  Continuous Learning
+                  Travail collaboratif
                 </span>
               </div>
             </div>
 
-            {/* Download CV button */}
+            {/* Bouton CV */}
             <a
-              href="#"
+              href="/cv-maliki-djandjieme.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
             >
-              Download CV
+              Télécharger mon CV
               <i className="fas fa-download ml-2"></i>
             </a>
           </div>

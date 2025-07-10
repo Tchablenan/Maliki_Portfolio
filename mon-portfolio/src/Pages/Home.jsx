@@ -4,13 +4,14 @@ import About from "../Components/About";
 import Skills from "../Components/Skills";
 import Experience from '../Components/Experience';
 import Projects from "../Components/project";
+import Contact from "../Components/Contact";
 
 export default function Home(){
     return (
         <div >
         
     
-        <main className="container mx-auto px-6 py-12">
+        <main className="container mx-auto px- py-12">
            <div>
             <Hero />
 
@@ -26,6 +27,9 @@ export default function Home(){
             </div>
             <div>
                 <Projects />
+            </div>
+            <div>
+                <Contact />
             </div>
         </main>
     
