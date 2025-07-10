@@ -36,14 +36,14 @@ function Navbar() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <a href="#" className="text-2xl font-bold text-primary-600 dark:text-primary-400">AC.</a>
+          <a href="#" className="text-2xl font-bold text-primary-600 dark:text-primary-400">MD.</a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            <a href="#home" className="nav-link active-nav">Home</a>
-            <a href="#about" className="nav-link">About</a>
-            <a href="#skills" className="nav-link">Skills</a>
-            <a href="#projects" className="nav-link">Projects</a>
+            <a href="#home" className="nav-link active-nav">Acceuil</a>
+            <a href="#about" className="nav-link">A propos</a>
+            <a href="#skills" className="nav-link">competences</a>
+            <a href="#projects" className="nav-link">Projets</a>
             <a href="#experience" className="nav-link">Experience</a>
             <a href="#contact" className="nav-link">Contact</a>
           </div>
@@ -71,10 +71,10 @@ function Navbar() {
 
         {/* Mobile Navigation */}
         <div id="mobile-menu" className={`md:hidden mt-4 space-y-4 pb-4 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-          <a href="#home" className="block nav-link active-nav">Home</a>
-          <a href="#about" className="block nav-link">About</a>
-          <a href="#skills" className="block nav-link">Skills</a>
-          <a href="#projects" className="block nav-link">Projects</a>
+          <a href="#home" className="block nav-link active-nav">Acceuil</a>
+          <a href="#about" className="block nav-link">A propos</a>
+          <a href="#skills" className="block nav-link">Competence</a>
+          <a href="#projects" className="block nav-link">Projets</a>
           <a href="#experience" className="block nav-link">Experience</a>
           <a href="#contact" className="block nav-link">Contact</a>
         </div>
