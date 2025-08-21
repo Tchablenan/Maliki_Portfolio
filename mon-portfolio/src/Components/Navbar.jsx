@@ -14,17 +14,7 @@ function Navbar() {
     }
   }, []);
 
-  // Fonction pour basculer le thème
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-    if (!darkMode) {
-      document.documentElement.classList.add('dark');  // Active le mode sombre
-      localStorage.setItem('theme', 'dark');  // Sauvegarde dans localStorage
-    } else {
-      document.documentElement.classList.remove('dark');  // Désactive le mode sombre
-      localStorage.setItem('theme', 'light');  // Sauvegarde dans localStorage
-    }
-  };
+
 
   // Fonction pour basculer le menu mobile
   const toggleMobileMenu = () => {
@@ -50,13 +40,7 @@ function Navbar() {
 
           {/* Theme Toggle & Mobile Menu Button */}
           <div className="flex items-center space-x-4">
-            {/* Basculement du thème */}
-            <button
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              onClick={toggleTheme}
-            >
-              <i className={`fas ${darkMode ? 'fa-sun' : 'fa-moon'}`}></i>
-            </button>
+          
 
             {/* Mobile Menu Button */}
             <button
