@@ -11,7 +11,7 @@ export default function Home(){
         <div >
         
     
-        <main className="container mx-auto px- py-12">
+        <main className=" ">
            <div>
             <Hero />
 
