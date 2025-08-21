@@ -2,40 +2,40 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // Compétences professionnelles avec icônes placeholder
 const skillCategories = [
-  { key: 'all', label: 'Tous', icon: '🔧' },
-  { key: 'geotech', label: 'Géotechnique', icon: '⛏️' },
+  { key: 'all', label: 'Toutes', icon: '📊' },
+  { key: 'geotech', label: 'Géotechnique', icon: '🏔️' },
   { key: 'infra', label: 'Infrastructures', icon: '🏗️' },
-  { key: 'tools', label: 'Outils', icon: '🛠️' },
+  { key: 'tools', label: 'Outils & Méthodes', icon: '⚙️' },
   { key: 'lab', label: 'Laboratoire', icon: '🔬' },
 ];
 
 const professionalSkills = [
   // Géotechnique
-  { name: 'Stabilisation des sols', category: 'geotech', icon: '⛏️', level: 95 },
-  { name: 'Essais triaxiaux / liquéfaction', category: 'geotech', icon: '🔬', level: 90 },
-  { name: 'Fondations (profondes / superficielles)', category: 'geotech', icon: '🏗️', level: 88 },
+  { name: 'Stabilisation des sols', category: 'geotech', icon: '⛰️', level: 95, description: 'Techniques avancées de stabilisation' },
+  { name: 'Essais triaxiaux / liquéfaction', category: 'geotech', icon: '🧪', level: 90, description: 'Analyse comportementale des sols' },
+  { name: 'Fondations profondes & superficielles', category: 'geotech', icon: '🏗️', level: 88, description: 'Conception et dimensionnement' },
 
   // Infrastructures
-  { name: 'Conception routière', category: 'infra', icon: '🛣️', level: 92 },
-  { name: 'Barrages et digues', category: 'infra', icon: '🏞️', level: 85 },
-  { name: 'Voirie et VRD', category: 'infra', icon: '🛤️', level: 87 },
+  { name: 'Conception routière', category: 'infra', icon: '🛣️', level: 92, description: 'Design et planification routière' },
+  { name: 'Barrages et digues', category: 'infra', icon: '🌊', level: 85, description: 'Ouvrages hydrauliques complexes' },
+  { name: 'Voirie et VRD', category: 'infra', icon: '🏘️', level: 87, description: 'Réseaux urbains et ruraux' },
 
   // Outils
-  { name: 'AutoCAD', category: 'tools', icon: '📐', level: 94 },
-  { name: 'Excel technique', category: 'tools', icon: '📊', level: 96 },
-  { name: 'Gestion de projet', category: 'tools', icon: '📋', level: 89 },
-  { name: 'Devis quantitatifs', category: 'tools', icon: '📄', level: 91 },
+  { name: 'AutoCAD', category: 'tools', icon: '📐', level: 94, description: 'Dessin technique et plans' },
+  { name: 'Excel technique', category: 'tools', icon: '📊', level: 96, description: 'Calculs et analyses avancées' },
+  { name: 'Gestion de projet', category: 'tools', icon: '📋', level: 89, description: 'Planification et coordination' },
+  { name: 'Devis quantitatifs', category: 'tools', icon: '💰', level: 91, description: 'Estimation et budgétisation' },
 
   // Laboratoire
-  { name: 'CBR / Compression / Cisaillement', category: 'lab', icon: '⚗️', level: 93 },
-  { name: 'Granulométrie / Atterberg', category: 'lab', icon: '🔬', level: 90 },
+  { name: 'CBR / Compression / Cisaillement', category: 'lab', icon: '⚗️', level: 93, description: 'Tests mécaniques des sols' },
+  { name: 'Granulométrie / Atterberg', category: 'lab', icon: '🔍', level: 90, description: 'Caractérisation physique' },
 ];
 
 // Compétences linguistiques
 const languageSkills = [
-  { name: 'Français – Natif', icon: '🇫🇷', level: 100 },
-  { name: 'Anglais – Excellent', icon: '🇬🇧', level: 90 },
-  { name: 'Japonais – Élémentaire', icon: '🇯🇵', level: 30 },
+  { name: 'Français', level: 'Natif', icon: '🇫🇷', proficiency: 100, description: 'Langue maternelle' },
+  { name: 'Anglais', level: 'Courant', icon: '🇬🇧', proficiency: 90, description: 'Professionnel et technique' },
+  { name: 'Japonais', level: 'Élémentaire', icon: '🇯🇵', proficiency: 30, description: 'Bases conversationnelles' },
 ];
 
 function Skills() {
@@ -63,17 +63,16 @@ function Skills() {
   }, []);
 
   useEffect(() => {
+    setAnimatedCards(new Set());
     if (isVisible) {
-      const animateCards = () => {
-        cardsRef.current.forEach((card, index) => {
-          if (card) {
-            setTimeout(() => {
-              setAnimatedCards(prev => new Set([...prev, index]));
-            }, index * 100);
-          }
+      const timer = setTimeout(() => {
+        filteredSkills.forEach((_, index) => {
+          setTimeout(() => {
+            setAnimatedCards(prev => new Set([...prev, index]));
+          }, index * 150);
         });
-      };
-      animateCards();
+      }, 300);
+      return () => clearTimeout(timer);
     }
   }, [isVisible, selectedCategory]);
 
@@ -82,471 +81,165 @@ function Skills() {
       ? professionalSkills
       : professionalSkills.filter((skill) => skill.category === selectedCategory);
 
+  const getLevelBadge = (level) => {
+    if (level >= 90) return { color: 'bg-emerald-100 text-emerald-800 border-emerald-200', label: 'Expert' };
+    if (level >= 80) return { color: 'bg-blue-100 text-blue-800 border-blue-200', label: 'Avancé' };
+    if (level >= 70) return { color: 'bg-yellow-100 text-yellow-800 border-yellow-200', label: 'Intermédiaire' };
+    return { color: 'bg-gray-100 text-gray-800 border-gray-200', label: 'Débutant' };
+  };
+
+  const getProficiencyStars = (proficiency) => {
+    const stars = Math.round(proficiency / 20);
+    return Array.from({ length: 5 }, (_, i) => (
+      <div
+        key={i}
+        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+          i < stars ? 'bg-yellow-400 shadow-sm' : 'bg-gray-300'
+        }`}
+      />
+    ));
+  };
+
   return (
-    <>
-      <style>{`
-        .skills-section {
-          padding: 6rem 0;
-          background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .skills-bg {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-        }
-
-        /* Particules de fond */
-        .bg-orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(60px);
-          animation: float-orb 8s ease-in-out infinite;
-        }
-
-        .orb-1 {
-          top: 10%;
-          left: 10%;
-          width: 200px;
-          height: 200px;
-          background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-          animation-delay: 0s;
-        }
-
-        .orb-2 {
-          top: 60%;
-          right: 15%;
-          width: 150px;
-          height: 150px;
-          background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, transparent 70%);
-          animation-delay: 3s;
-        }
-
-        .orb-3 {
-          bottom: 20%;
-          left: 20%;
-          width: 180px;
-          height: 180px;
-          background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
-          animation-delay: 6s;
-        }
-
-        /* Grille hexagonale de fond */
-        .hex-pattern {
-          position: absolute;
-          inset: 0;
-          background-image: 
-            radial-gradient(circle at 25px 25px, rgba(59, 130, 246, 0.1) 2px, transparent 2px),
-            radial-gradient(circle at 75px 75px, rgba(147, 51, 234, 0.1) 2px, transparent 2px);
-          background-size: 100px 100px;
-          animation: drift 20s linear infinite;
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 1.5rem;
-          position: relative;
-          z-index: 10;
-        }
-
-        /* Titre principal */
-        .main-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          text-align: center;
-          margin-bottom: 3rem;
-          color: white;
-          opacity: 0;
-          transform: translateY(30px);
-          animation: ${props => props.isVisible ? 'fade-in-up 1s ease-out 0.2s forwards' : 'none'};
-        }
-
-        @media (min-width: 768px) {
-          .main-title {
-            font-size: 3rem;
-          }
-        }
-
-        .title-highlight {
-          background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06d6a0);
-          background-size: 200% 200%;
-          background-clip: text;
-          -webkit-background-clip: text;
-          color: transparent;
-          animation: gradient-flow 3s ease-in-out infinite;
-        }
-
-        /* Filtres */
-        .filters-container {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 1rem;
-          margin-bottom: 3rem;
-          opacity: 0;
-          transform: translateY(20px);
-          animation: ${props => props.isVisible ? 'fade-in-up 0.8s ease-out 0.4s forwards' : 'none'};
-        }
-
-        .filter-btn {
-          position: relative;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.75rem 1.5rem;
-          border: 2px solid transparent;
-          border-radius: 50px;
-          font-weight: 600;
-          font-size: 0.875rem;
-          cursor: pointer;
-          overflow: hidden;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          background: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.8);
-          backdrop-filter: blur(10px);
-        }
-
-        .filter-btn::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .filter-btn.active {
-          background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-          color: white;
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px -3px rgba(59, 130, 246, 0.4);
-        }
-
-        .filter-btn:hover:not(.active) {
-          background: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px -3px rgba(255, 255, 255, 0.1);
-        }
-
-        .filter-btn span {
-          position: relative;
-          z-index: 10;
-        }
-
-        .filter-icon {
-          font-size: 1rem;
-          position: relative;
-          z-index: 10;
-        }
-
-        /* Grille des compétences */
-        .skills-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1.5rem;
-          margin-bottom: 5rem;
-        }
-
-        @media (min-width: 640px) {
-          .skills-grid {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          }
-        }
-
-        .skill-card {
-          position: relative;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
-          padding: 2rem 1.5rem;
-          text-align: center;
-          cursor: pointer;
-          overflow: hidden;
-          backdrop-filter: blur(10px);
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          opacity: 0;
-          transform: translateY(30px) scale(0.9);
-        }
-
-        .skill-card.animated {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-
-        .skill-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .skill-card:hover {
-          transform: translateY(-10px) scale(1.05);
-          box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3);
-          border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .skill-card:hover::before {
-          opacity: 1;
-        }
-
-        .skill-icon {
-          font-size: 3rem;
-          margin-bottom: 1rem;
-          display: block;
-          position: relative;
-          z-index: 10;
-          transition: transform 0.3s ease;
-        }
-
-        .skill-card:hover .skill-icon {
-          transform: scale(1.2) rotate(5deg);
-        }
-
-        .skill-name {
-          font-size: 1rem;
-          font-weight: 600;
-          color: white;
-          margin-bottom: 1rem;
-          position: relative;
-          z-index: 10;
-        }
-
-        .skill-level {
-          position: relative;
-          height: 6px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 3px;
-          overflow: hidden;
-        }
-
-        .skill-progress {
-          height: 100%;
-          background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-          border-radius: 3px;
-          transition: width 1s ease-out;
-          width: 0;
-          position: relative;
-        }
-
-        .skill-progress::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-          animation: shimmer 2s infinite;
-        }
-
-        .skill-card.animated .skill-progress {
-          animation: progress-fill 1.5s ease-out forwards;
-        }
-
-        /* Section Langues */
-        .languages-title {
-          font-size: 2rem;
-          font-weight: 700;
-          text-align: center;
-          margin-bottom: 2rem;
-          color: white;
-          opacity: 0;
-          transform: translateY(30px);
-          animation: ${props => props.isVisible ? 'fade-in-up 1s ease-out 1.5s forwards' : 'none'};
-        }
-
-        .languages-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1.5rem;
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .language-card {
-          position: relative;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 16px;
-          padding: 1.5rem;
-          text-align: center;
-          cursor: pointer;
-          overflow: hidden;
-          backdrop-filter: blur(15px);
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          opacity: 0;
-          transform: translateY(20px);
-          animation: fade-in-up 0.6s ease-out forwards;
-        }
-
-        .language-card:nth-child(1) { animation-delay: 1.7s; }
-        .language-card:nth-child(2) { animation-delay: 1.9s; }
-        .language-card:nth-child(3) { animation-delay: 2.1s; }
-
-        .language-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.4);
-          border-color: rgba(59, 130, 246, 0.5);
-          background: rgba(59, 130, 246, 0.1);
-        }
-
-        .language-flag {
-          font-size: 2.5rem;
-          margin-bottom: 0.75rem;
-          display: block;
-          transition: transform 0.3s ease;
-        }
-
-        .language-card:hover .language-flag {
-          transform: scale(1.1);
-        }
-
-        .language-name {
-          font-size: 0.9rem;
-          font-weight: 500;
-          color: white;
-          opacity: 0.9;
-        }
-
-        /* Animations */
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes gradient-flow {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        @keyframes float-orb {
-          0%, 100% {
-            transform: translateY(0px) scale(1);
-          }
-          33% {
-            transform: translateY(-20px) scale(1.1);
-          }
-          66% {
-            transform: translateY(10px) scale(0.9);
-          }
-        }
-
-        @keyframes drift {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(100px);
-          }
-        }
-
-        @keyframes progress-fill {
-          from {
-            width: 0;
-          }
-          to {
-            width: var(--progress-width);
-          }
-        }
-
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-      `}</style>
-
-      <section ref={sectionRef} className="skills-section">
-        {/* Éléments de fond */}
-        <div className="skills-bg">
-          <div className="hex-pattern"></div>
-          <div className="bg-orb orb-1"></div>
-          <div className="bg-orb orb-2"></div>
-          <div className="bg-orb orb-3"></div>
+    <section 
+      ref={sectionRef} 
+      className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        
+        {/* En-tête de section */}
+        <div className={`text-center mb-12 sm:mb-16 lg:mb-20 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+            Expertise & Compétences
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full"></div>
+          <p className="mt-4 sm:mt-6 text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Une expertise technique approfondie acquise à travers des projets internationaux 
+            et une approche scientifique rigoureuse
+          </p>
         </div>
 
-        <div className="container">
-          {/* Titre principal */}
-          <h2 className="main-title" style={{opacity: isVisible ? 1 : 0}}>
-            Mes <span className="title-highlight">Compétences</span>
-          </h2>
+        {/* Filtres de catégories */}
+        <div className={`flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-12 sm:mb-16 transition-all duration-800 delay-200 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}>
+          {skillCategories.map(({ key, label, icon }) => (
+            <button
+              key={key}
+              onClick={() => setSelectedCategory(key)}
+              className={`group flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
+                selectedCategory === key
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25 scale-105'
+                  : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md hover:shadow-lg border border-gray-200 hover:border-blue-200 hover:text-blue-600'
+              }`}
+            >
+              <span className="text-base sm:text-lg">{icon}</span>
+              <span>{label}</span>
+            </button>
+          ))}
+        </div>
 
-          {/* Filtres */}
-          <div className="filters-container" style={{opacity: isVisible ? 1 : 0}}>
-            {skillCategories.map(({ key, label, icon }) => (
-              <button
-                key={key}
-                onClick={() => setSelectedCategory(key)}
-                className={`filter-btn ${selectedCategory === key ? 'active' : ''}`}
-              >
-                <span className="filter-icon">{icon}</span>
-                <span>{label}</span>
-              </button>
-            ))}
+        {/* Grille des compétences techniques */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-16 sm:mb-20">
+          {filteredSkills.map((skill, idx) => (
+            <div
+              key={`${skill.name}-${selectedCategory}`}
+              ref={el => cardsRef.current[idx] = el}
+              className={`group bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl border border-gray-100 hover:border-blue-200 p-6 sm:p-8 transition-all duration-500 cursor-pointer relative overflow-hidden ${
+                animatedCards.has(idx) 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              } hover:-translate-y-2`}
+            >
+              {/* Badge de niveau en haut à droite */}
+              <div className={`absolute top-4 right-4 px-2 py-1 rounded-full text-xs font-medium border ${getLevelBadge(skill.level).color}`}>
+                {getLevelBadge(skill.level).label}
+              </div>
+              {/* En-tête de carte */}
+              <div className="flex items-center justify-center mb-6">
+                <div className="p-4 bg-gray-50 rounded-xl group-hover:bg-blue-50 transition-colors duration-300">
+                  <span className="text-3xl sm:text-4xl">{skill.icon}</span>
+                </div>
+              </div>
+
+              {/* Contenu de carte */}
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300 leading-tight text-center">
+                {skill.name}
+              </h3>
+              <p className="text-sm text-gray-600 leading-relaxed text-center">
+                {skill.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Section Langues */}
+        <div className={`transition-all duration-1000 delay-600 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Compétences Linguistiques
+            </h3>
+            <div className="w-20 h-1 bg-gradient-to-r from-emerald-500 to-teal-600 mx-auto rounded-full"></div>
           </div>
 
-          {/* Grille des compétences professionnelles */}
-          <div className="skills-grid">
-            {filteredSkills.map((skill, idx) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
+            {languageSkills.map((lang, idx) => (
               <div
-                key={`${skill.name}-${selectedCategory}`}
-                ref={el => cardsRef.current[idx] = el}
-                className={`skill-card ${animatedCards.has(idx) ? 'animated' : ''}`}
+                key={idx}
+                className={`group bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-xl border border-gray-100 hover:border-emerald-200 p-6 sm:p-8 text-center transition-all duration-500 hover:-translate-y-1 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
+                style={{
+                  transitionDelay: `${800 + idx * 200}ms`
+                }}
               >
-                <span className="skill-icon">{skill.icon}</span>
-                <div className="skill-name">{skill.name}</div>
-                <div className="skill-level">
-                  <div 
-                    className="skill-progress"
-                    style={{
-                      '--progress-width': `${skill.level}%`,
-                      width: animatedCards.has(idx) ? `${skill.level}%` : '0%'
-                    }}
-                  ></div>
+                {/* Drapeau */}
+                <div className="mb-4">
+                  <span className="text-4xl sm:text-5xl inline-block transform group-hover:scale-110 transition-transform duration-300">
+                    {lang.icon}
+                  </span>
+                </div>
+
+                {/* Informations de langue */}
+                <h4 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
+                  {lang.name}
+                </h4>
+                <div className="text-emerald-600 font-semibold mb-2 text-sm sm:text-base">
+                  {lang.level}
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  {lang.description}
+                </p>
+
+                {/* Indicateur de maîtrise */}
+                <div className="space-y-2">
+                  <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">
+                    Niveau de maîtrise
+                  </div>
+                  <div className="flex justify-center gap-1">
+                    {getProficiencyStars(lang.proficiency)}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Section Langues */}
-          <h3 className="languages-title" style={{opacity: isVisible ? 1 : 0}}>
-            Langues <span className="title-highlight">Parlées</span>
-          </h3>
-
-          <div className="languages-grid">
-            {languageSkills.map((lang, idx) => (
-              <div
-                key={idx}
-                className="language-card"
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  animationDelay: `${1.7 + idx * 0.2}s`
-                }}
-              >
-                <span className="language-flag">{lang.icon}</span>
-                <div className="language-name">{lang.name}</div>
-              </div>
-            ))}
+        {/* Call-to-action subtil */}
+        <div className={`text-center mt-16 sm:mt-20 transition-all duration-1000 delay-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 text-white rounded-full text-sm font-medium shadow-lg hover:bg-gray-700 transition-all duration-300 hover:scale-105">
+            <span>💼</span>
+            <span>Prêt pour de nouveaux défis techniques</span>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
