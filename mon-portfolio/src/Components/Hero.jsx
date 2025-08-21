@@ -12,7 +12,7 @@ function Hero() {
   }, []);
 
   // Placeholder profile image
-  const profileImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face";
+  const profileImage = "assets/profile.jpg";
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-800 to-violet-800 p-4 sm:p-6 md:p-8 lg:p-12">
