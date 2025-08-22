@@ -378,28 +378,7 @@ function Experience() {
         )}
 
         {/* Professional Stats */}
-        <div className="mt-12 sm:mt-16 lg:mt-20">
-          <div className="bg-white rounded-xl shadow-md hover:shadow-xl p-4 sm:p-6 lg:p-8 border border-gray-100 transition-all duration-500 hover:-translate-y-1">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-              <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600 mb-1 group-hover:scale-125 transition-transform duration-300">8+</div>
-                <div className="text-xs sm:text-sm text-gray-600 group-hover:text-blue-600 transition-colors duration-300">Années d'expérience</div>
-              </div>
-              <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-1 group-hover:scale-125 transition-transform duration-300">3</div>
-                <div className="text-xs sm:text-sm text-gray-600 group-hover:text-purple-600 transition-colors duration-300">Pays d'intervention</div>
-              </div>
-              <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-emerald-600 mb-1 group-hover:scale-125 transition-transform duration-300">1</div>
-                <div className="text-xs sm:text-sm text-gray-600 group-hover:text-emerald-600 transition-colors duration-300">Doctorat</div>
-              </div>
-              <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-orange-600 mb-1 group-hover:scale-125 transition-transform duration-300">5+</div>
-                <div className="text-xs sm:text-sm text-gray-600 group-hover:text-orange-600 transition-colors duration-300">Projets majeurs</div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
       </div>
 
       <style jsx>{`
