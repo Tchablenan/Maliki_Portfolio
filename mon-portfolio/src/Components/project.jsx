@@ -178,6 +178,7 @@ function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [showAll, setShowAll] = useState(false);
   const observerRef = useRef(null);
+  const elementsRef = useRef([]);
 
   // Get unique categories
   const categories = ['Tous', ...new Set(projects.map(p => p.category))];
@@ -189,17 +190,28 @@ function Projects() {
 
   const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 6);
 
+  // Observer pour les animations
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisibleItems(prev => new Set(prev).add(entry.target.dataset.index));
+            const index = entry.target.dataset.index;
+            if (index) {
+              setVisibleItems(prev => new Set([...prev, index]));
+            }
           }
         });
       },
       { threshold: 0.1, rootMargin: '20px' }
     );
+
+    // Observer les éléments existants
+    elementsRef.current.forEach(el => {
+      if (el && observerRef.current) {
+        observerRef.current.observe(el);
+      }
+    });
 
     return () => {
       if (observerRef.current) {
@@ -207,6 +219,25 @@ function Projects() {
       }
     };
   }, []);
+
+  // Réobserver les éléments quand les projets changent
+  useEffect(() => {
+    // Petite attente pour s'assurer que les éléments sont rendus
+    const timeout = setTimeout(() => {
+      elementsRef.current.forEach(el => {
+        if (el && observerRef.current) {
+          observerRef.current.observe(el);
+        }
+      });
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [displayedProjects]);
+
+  // Fonction pour définir la référence d'un élément
+  const setElementRef = (index) => (el) => {
+    elementsRef.current[index] = el;
+  };
 
   const getCategoryColors = (category) => {
     const colorMap = {
@@ -222,7 +253,7 @@ function Projects() {
   };
 
   return (
-    <section className="py-8 sm:py-12 lg:py-20 bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50 min-h-screen overflow-hidden " id="projects">
+    <section className="py-8 sm:py-12 lg:py-20 bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50 min-h-screen overflow-hidden" id="projects">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         
         {/* Animations CSS */}
@@ -309,10 +340,22 @@ function Projects() {
           .tech-tag:hover {
             transform: scale(1.1);
           }
+
+          /* Animation de base pour tous les projets */
+          .project-item {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease-out;
+          }
+
+          /* Animation pour l'intersection observer */
+          .project-item.observed {
+            animation: slide-up 0.6s ease-out;
+          }
         `}</style>
 
         {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16 ">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl shadow-lg mb-4 sm:mb-6 animate-bounce hover:animate-pulse-glow transition-all duration-300">
             <ProjectIcon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
           </div>
@@ -360,19 +403,14 @@ function Projects() {
 
             return (
               <div
-                key={index}
+                key={`${project.title}-${index}`}
                 data-index={index}
-                ref={(el) => {
-                  if (el && observerRef.current) {
-                    observerRef.current.observe(el);
-                  }
+                ref={setElementRef(index)}
+                className={`project-item ${isVisible ? 'observed' : ''}`}
+                style={{ 
+                  transitionDelay: `${index * 100}ms`,
+                  animationDelay: `${index * 150}ms`
                 }}
-                className={`transform transition-all duration-700 ease-out ${
-                  isVisible 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <ProjectWrapper {...wrapperProps}>
                   <div className="bg-white rounded-xl sm:rounded-2xl shadow-md border border-gray-100 overflow-hidden hover-lift h-full flex flex-col relative group">
@@ -472,8 +510,6 @@ function Projects() {
             </button>
           </div>
         )}
-
-       
       </div>
     </section>
   );

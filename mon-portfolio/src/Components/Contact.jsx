@@ -63,10 +63,10 @@ function Contact() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
-            Entrons en Contact
+             Contact
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Prêt à collaborer sur votre prochain projet ? Je serais ravi d'échanger avec vous sur vos idées et défis techniques.
+
           </p>
         </div>
 
