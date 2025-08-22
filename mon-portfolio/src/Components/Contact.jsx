@@ -52,758 +52,237 @@ function Contact() {
   };
 
   return (
-    <>
-      <style jsx>{`
-        .contact-section {
-          min-height: 100vh;
-          padding: 5rem 0;
-          background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #eff6ff 100%);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .dark .contact-section {
-          background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
-        }
-
-        .bg-decoration {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(60px);
-          opacity: 0.1;
-        }
-
-        .bg-decoration-1 {
-          top: -10rem;
-          right: -10rem;
-          width: 20rem;
-          height: 20rem;
-          background: #60a5fa;
-        }
-
-        .bg-decoration-2 {
-          bottom: -10rem;
-          left: -10rem;
-          width: 20rem;
-          height: 20rem;
-          background: #a855f7;
-        }
-
-        .bg-decoration-3 {
-          top: 5rem;
-          left: 5rem;
-          width: 5rem;
-          height: 5rem;
-          background: #fbbf24;
-          filter: blur(20px);
-        }
-
-        .bg-decoration-4 {
-          bottom: 5rem;
-          right: 5rem;
-          width: 8rem;
-          height: 8rem;
-          background: #10b981;
-          filter: blur(40px);
-        }
-
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 1.5rem;
-          position: relative;
-          z-index: 10;
-        }
-
-        .header {
-          text-align: center;
-          margin-bottom: 4rem;
-        }
-
-        .main-title {
-          font-size: 3.5rem;
-          font-weight: 700;
-          margin-bottom: 1.5rem;
-          background: linear-gradient(to right, #2563eb, #7c3aed, #1d4ed8);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .subtitle {
-          font-size: 1.25rem;
-          color: #6b7280;
-          max-width: 32rem;
-          margin: 0 auto;
-          line-height: 1.6;
-        }
-
-        .dark .subtitle {
-          color: #d1d5db;
-        }
-
-        .grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 3rem;
-          align-items: start;
-          max-width: 90rem;
-          margin: 0 auto;
-        }
-
-        @media (min-width: 1024px) {
-          .grid {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-
-        .contact-info {
-          display: flex;
-          flex-direction: column;
-          gap: 2rem;
-        }
-
-        .info-card {
-          background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(20px);
-          border-radius: 1rem;
-          padding: 2rem;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          transition: all 0.3s ease;
-          
-        }
-
-        .dark .info-card {
-          background: rgba(31, 41, 55, 0.7);
-          border: 1px solid rgba(75, 85, 99, 0.2);
-        }
-
-        .info-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          margin-bottom: 1.5rem;
-          color: #1f2937;
-        }
-
-        .dark .info-title {
-          color: #ffffff;
-        }
-
-        .info-description {
-          color: #6b7280;
-          margin-bottom: 2rem;
-          font-size: 1.125rem;
-          line-height: 1.6;
-        }
-
-        .dark .info-description {
-          color: #d1d5db;
-        }
-
-        .contact-items {
-          display: flex;
-          flex-direction: column;
-          gap: 2rem;
-        }
-
-        .contact-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 1.5rem;
-          padding: 1.5rem;
-          border-radius: 1rem;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          cursor: pointer;
-          position: relative;
-          overflow: hidden;
-          border: 1px solid transparent;
-        }
-
-        .contact-item::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-          transition: left 0.5s ease;
-        }
-
-        .contact-item:hover::before {
-          left: 100%;
-        }
-
-        .contact-item:hover {
-          background: rgba(59, 130, 246, 0.08);
-          transform: translateY(-2px);
-          border-color: rgba(59, 130, 246, 0.2);
-          box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
-        }
-
-        .contact-item.phone:hover {
-          background: rgba(16, 185, 129, 0.08);
-          border-color: rgba(16, 185, 129, 0.2);
-          box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
-        }
-
-        .dark .contact-item:hover {
-          background: rgba(59, 130, 246, 0.1);
-        }
-
-        .dark .contact-item.phone:hover {
-          background: rgba(16, 185, 129, 0.1);
-        }
-
-        .contact-icon {
-          width: 3.5rem;
-          height: 3.5rem;
-          border-radius: 1rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          flex-shrink: 0;
-        }
-
-        .contact-icon::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 1rem;
-          padding: 2px;
-          background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: subtract;
-          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          mask-composite: subtract;
-        }
-
-        .contact-item:hover .contact-icon {
-          transform: scale(1.05) rotate(3deg);
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .email-icon {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .phone-icon {
-          background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        }
-
-        .contact-details {
-          flex: 1;
-          min-width: 0;
-        }
-
-        .contact-details h4 {
-          font-weight: 700;
-          font-size: 1.125rem;
-          color: #1f2937;
-          margin-bottom: 0.75rem;
-          letter-spacing: -0.025em;
-        }
-
-        .dark .contact-details h4 {
-          color: #ffffff;
-        }
-
-        .contact-links {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-
-        .contact-details a {
-          color: #6b7280;
-          text-decoration: none;
-          transition: all 0.2s ease;
-          font-size: 0.95rem;
-          font-weight: 500;
-          padding: 0.25rem 0;
-          border-radius: 0.375rem;
-          position: relative;
-        }
-
-        .contact-details a::before {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(to right, #3b82f6, #8b5cf6);
-          transition: width 0.3s ease;
-        }
-
-        .contact-details a:hover::before {
-          width: 100%;
-        }
-
-        .contact-details a:hover {
-          color: #3b82f6;
-          transform: translateX(4px);
-        }
-
-        .dark .contact-details a {
-          color: #d1d5db;
-        }
-
-        .dark .contact-details a:hover {
-          color: #60a5fa;
-        }
-
-        .phone-link {
-          font-size: 1.1rem;
-          font-weight: 600;
-          letter-spacing: 0.025em;
-        }
-
-        .social-section {
-          margin-top: 2rem;
-          padding-top: 1.5rem;
-          border-top: 1px solid #e5e7eb;
-        }
-
-        .dark .social-section {
-          border-top: 1px solid #4b5563;
-        }
-
-        .social-title {
-          font-weight: 600;
-          color: #1f2937;
-          margin-bottom: 1rem;
-        }
-
-        .dark .social-title {
-          color: #ffffff;
-        }
-
-        .social-links {
-          display: flex;
-          gap: 1rem;
-        }
-
-        .social-link {
-          width: 3rem;
-          height: 3rem;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-          transition: all 0.3s ease;
-          text-decoration: none;
-        }
-
-        .social-link:hover {
-          transform: scale(1.1);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-link svg {
-          width: 1.25rem;
-          height: 1.25rem;
-          color: white;
-          transition: transform 0.3s ease;
-        }
-
-        .social-link:hover svg {
-          transform: rotate(12deg);
-        }
-
-        .linkedin {
-          background: linear-gradient(to right, #2563eb, #1d4ed8);
-        }
-
-        .facebook {
-          background: linear-gradient(to right, #3b82f6, #2563eb);
-        }
-
-        .twitter {
-          background: linear-gradient(to right, #1f2937, #000000);
-        }
-
-        .form-card {
-          background: rgba(255, 255, 255, 0.8);
-          backdrop-filter: blur(20px);
-          border-radius: 1rem;
-          padding: 2rem;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .dark .form-card {
-          background: rgba(31, 41, 55, 0.8);
-          border: 1px solid rgba(75, 85, 99, 0.2);
-        }
-
-        .form-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          margin-bottom: 1.5rem;
-          color: #1f2937;
-        }
-
-        .dark .form-title {
-          color: #ffffff;
-        }
-
-        .form-container {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-
-        .form-row {
-          display: grid;
-          gap: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-          .form-row {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-
-        .form-group {
-          display: flex;
-          flex-direction: column;
-          transition: all 0.3s ease;
-        }
-
-        .form-group:hover {
-          transform: translateY(-2px);
-        }
-
-        .form-label {
-          display: block;
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: #374151;
-          margin-bottom: 0.5rem;
-        }
-
-        .dark .form-label {
-          color: #d1d5db;
-        }
-
-        .form-input, .form-textarea {
-          width: 100%;
-          padding: 0.75rem 1rem;
-          border: 1px solid #d1d5db;
-          border-radius: 0.75rem;
-          font-size: 1rem;
-          background: rgba(255, 255, 255, 0.5);
-          backdrop-filter: blur(10px);
-          transition: all 0.3s ease;
-          box-sizing: border-box;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-          outline: none;
-          ring: 2px solid #3b82f6;
-          border-color: transparent;
-          box-shadow: 0 0 0 2px #3b82f6;
-        }
-
-        .dark .form-input, .dark .form-textarea {
-          border: 1px solid #4b5563;
-          background: rgba(55, 65, 81, 0.5);
-          color: #ffffff;
-        }
-
-        .form-textarea {
-          resize: none;
-          min-height: 150px;
-        }
-
-        .submit-button {
-          width: 100%;
-          position: relative;
-          overflow: hidden;
-          padding: 1rem 2rem;
-          background: linear-gradient(to right, #2563eb, #7c3aed);
-          color: white;
-          border: none;
-          border-radius: 0.75rem;
-          font-weight: 600;
-          font-size: 1rem;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .submit-button:hover:not(:disabled) {
-          background: linear-gradient(to right, #1d4ed8, #6d28d9);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-          transform: scale(1.02);
-        }
-
-        .submit-button:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-          transform: none;
-        }
-
-        .button-content {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-        }
-
-        .spinner {
-          width: 1.25rem;
-          height: 1.25rem;
-          border: 2px solid transparent;
-          border-top: 2px solid white;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        .status-message {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 1rem;
-          border-radius: 0.75rem;
-          border: 1px solid;
-          font-weight: 500;
-          animation: slideIn 0.3s ease;
-        }
-
-        .status-success {
-          background: rgba(16, 185, 129, 0.1);
-          border-color: rgba(16, 185, 129, 0.2);
-          color: #047857;
-        }
-
-        .dark .status-success {
-          background: rgba(16, 185, 129, 0.1);
-          border-color: rgba(16, 185, 129, 0.3);
-          color: #34d399;
-        }
-
-        .status-error {
-          background: rgba(239, 68, 68, 0.1);
-          border-color: rgba(239, 68, 68, 0.2);
-          color: #dc2626;
-        }
-
-        .dark .status-error {
-          background: rgba(239, 68, 68, 0.1);
-          border-color: rgba(239, 68, 68, 0.3);
-          color: #f87171;
-        }
-
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (max-width: 768px) {
-          .main-title {
-            font-size: 2.5rem;
-          }
-          
-          .contact-section {
-            padding: 3rem 0;
-          }
-          
-          .container {
-            padding: 0 1rem;
-          }
-        }
-      `}</style>
-
-      <section className="contact-section">
-        {/* Background decorations */}
-        <div className="bg-decoration bg-decoration-1"></div>
-        <div className="bg-decoration bg-decoration-2"></div>
-        <div className="bg-decoration bg-decoration-3"></div>
-        <div className="bg-decoration bg-decoration-4"></div>
-
-        <div className="container">
-          {/* Header */}
-          <div className="header">
-            <h2 className="main-title">Entrons en Contact</h2>
-            <p className="subtitle">
-              Prêt à collaborer sur votre prochain projet ? Je serais ravi d'échanger avec vous sur vos idées et défis techniques.
-            </p>
-          </div>
-
-          <div className="grid">
-            {/* Contact Info */}
-            <div className="contact-info">
-              <div className="info-card">
-                <h3 className="info-title">Informations de contact</h3>
-                <p className="info-description">
-                  N'hésitez pas à me contacter pour toute collaboration ou question.
-                  Je suis disponible pour échanger sur des projets d'infrastructure, de recherche ou de conseil.
-                </p>
-
-                <div className="contact-items">
-                  {/* Email */}
-                  <div className="contact-item">
-                    <div className="contact-icon email-icon">
-                      <Mail size={20} color="white" />
-                    </div>
-                    <div className="contact-details">
-                      <h4>Email</h4>
-                      <div className="contact-links">
-                        <a href="mailto:kdjandjieme@gmail.com">kdjandjieme@gmail.com</a>
-                        <a href="mailto:djandjiememaliki@yahoo.com">djandjiememaliki@yahoo.com</a>
-                      </div>
-                    </div>
+    <section className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-blue-900 relative overflow-hidden" id="contact">
+      {/* Background decorations */}
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400 rounded-full blur-3xl opacity-10"></div>
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full blur-3xl opacity-10"></div>
+      <div className="absolute top-20 left-20 w-20 h-20 bg-yellow-400 rounded-full blur-sm opacity-10"></div>
+      <div className="absolute bottom-20 right-20 w-32 h-32 bg-green-500 rounded-full blur-2xl opacity-10"></div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+            Entrons en Contact
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Prêt à collaborer sur votre prochain projet ? Je serais ravi d'échanger avec vous sur vos idées et défis techniques.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+          {/* Contact Info */}
+          <div className="flex flex-col gap-8">
+            <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-8 shadow-2xl border border-white/20 dark:border-gray-700/20">
+              <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+                Informations de contact
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed">
+                N'hésitez pas à me contacter pour toute collaboration ou question.
+                Je suis disponible pour échanger sur des projets d'infrastructure, de recherche ou de conseil.
+              </p>
+
+              <div className="flex flex-col gap-8">
+                {/* Email */}
+                <div className="flex items-start gap-6 p-6 rounded-xl transition-all duration-300 cursor-pointer border border-transparent hover:bg-blue-50/80 dark:hover:bg-blue-900/20 hover:-translate-y-1 hover:border-blue-200/50 dark:hover:border-blue-700/50 hover:shadow-lg group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:rotate-3 relative">
+                    <div className="absolute inset-0.5 rounded-xl bg-gradient-to-br from-white/30 to-white/10"></div>
+                    <Mail size={20} className="text-white relative z-10" />
                   </div>
-
-                  {/* Phone */}
-                  <div className="contact-item phone">
-                    <div className="contact-icon phone-icon">
-                      <Phone size={20} color="white" />
-                    </div>
-                    <div className="contact-details">
-                      <h4>Téléphone</h4>
-                      <div className="contact-links">
-                        <a href="tel:+2250705008308" className="phone-link">+225 07 05 00 83 08</a>
-                      </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-lg text-gray-900 dark:text-white mb-3 tracking-tight">Email</h4>
+                    <div className="flex flex-col gap-2">
+                      <a 
+                        href="mailto:kdjandjieme@gmail.com" 
+                        className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 font-medium text-sm hover:translate-x-1 relative"
+                      >
+                        <span className="relative">
+                          kdjandjieme@gmail.com
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 group-hover:w-full"></span>
+                        </span>
+                      </a>
+                      <a 
+                        href="mailto:djandjiememaliki@yahoo.com" 
+                        className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 font-medium text-sm hover:translate-x-1 relative"
+                      >
+                        <span className="relative">
+                          djandjiememaliki@yahoo.com
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 group-hover:w-full"></span>
+                        </span>
+                      </a>
                     </div>
                   </div>
                 </div>
 
-                {/* Social Media */}
-                <div className="social-section">
-                  <h4 className="social-title">Retrouvez-moi sur</h4>
-                  <div className="social-links">
-                    <a href="https://www.linkedin.com/in/djandjieme-maliki-otieboame-a50798b0" target="_blank" rel="noopener noreferrer" className="social-link linkedin">
-                      <Linkedin />
-                    </a>
-                    <a href="https://web.facebook.com/malikiotieboame" target="_blank" rel="noopener noreferrer" className="social-link facebook">
-                      <Facebook />
-                    </a>
-                    <a href="https://x.com/DjandjiemeM" target="_blank" rel="noopener noreferrer" className="social-link twitter">
-                      <Twitter />
-                    </a>
+                {/* Phone */}
+                <div className="flex items-start gap-6 p-6 rounded-xl transition-all duration-300 cursor-pointer border border-transparent hover:bg-green-50/80 dark:hover:bg-green-900/20 hover:-translate-y-1 hover:border-green-200/50 dark:hover:border-green-700/50 hover:shadow-lg group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:rotate-3 relative flex-shrink-0">
+                    <div className="absolute inset-0.5 rounded-xl bg-gradient-to-br from-white/30 to-white/10"></div>
+                    <Phone size={20} className="text-white relative z-10" />
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-bold text-lg text-gray-900 dark:text-white mb-3 tracking-tight">Téléphone</h4>
+                    <div className="flex flex-col gap-2">
+                      <a 
+                        href="tel:+2250705008308" 
+                        className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 font-semibold text-lg tracking-wide hover:translate-x-1 relative"
+                      >
+                        <span className="relative">
+                          +225 07 05 00 83 08
+                          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 group-hover:w-full"></span>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Media */}
+              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Retrouvez-moi sur</h4>
+                <div className="flex gap-4">
+                  <a 
+                    href="https://www.linkedin.com/in/djandjieme-maliki-otieboame-a50798b0" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
+                  >
+                    <Linkedin size={20} className="text-white transition-transform duration-300 hover:rotate-12" />
+                  </a>
+                  <a 
+                    href="https://web.facebook.com/malikiotieboame" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
+                  >
+                    <Facebook size={20} className="text-white transition-transform duration-300 hover:rotate-12" />
+                  </a>
+                  <a 
+                    href="https://x.com/DjandjiemeM" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-gray-800 to-black flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
+                  >
+                    <Twitter size={20} className="text-white transition-transform duration-300 hover:rotate-12" />
+                  </a>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Contact Form */}
-            <div className="form-card">
-              <h3 className="form-title">Envoyez-moi un message</h3>
-              
-              <div className="form-container">
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="name" className="form-label">Nom complet</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="Votre nom"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="votre@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="subject" className="form-label">Objet</label>
+          {/* Contact Form */}
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-2xl border border-white/20 dark:border-gray-700/20">
+            <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+              Envoyez-moi un message
+            </h3>
+            
+            <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col transition-all duration-300 hover:-translate-y-1">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Nom complet
+                  </label>
                   <input
                     type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
+                    id="name"
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
-                    className="form-input"
-                    placeholder="Sujet de votre message"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl text-base bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-white"
+                    placeholder="Votre nom"
                   />
                 </div>
-
-                <div className="form-group">
-                  <label htmlFor="message" className="form-label">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
+                <div className="flex flex-col transition-all duration-300 hover:-translate-y-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleChange}
-                    className="form-textarea"
-                    placeholder="Décrivez votre projet ou votre demande..."
-                  ></textarea>
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl text-base bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-white"
+                    placeholder="votre@email.com"
+                  />
                 </div>
-
-                <button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="submit-button"
-                >
-                  <span className="button-content">
-                    {isSubmitting ? (
-                      <>
-                        <div className="spinner"></div>
-                        <span>Envoi en cours...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Envoyer le message</span>
-                        <Send size={20} />
-                      </>
-                    )}
-                  </span>
-                </button>
-
-                {/* Status Messages */}
-                {status && (
-                  <div className={`status-message ${status === 'success' ? 'status-success' : 'status-error'}`}>
-                    {status === 'success' ? (
-                      <CheckCircle size={20} />
-                    ) : (
-                      <AlertCircle size={20} />
-                    )}
-                    <span>
-                      {status === 'success' 
-                        ? 'Message envoyé avec succès ! Je vous répondrai bientôt.' 
-                        : 'Erreur lors de l\'envoi. Veuillez réessayer.'}
-                    </span>
-                  </div>
-                )}
               </div>
+
+              <div className="flex flex-col transition-all duration-300 hover:-translate-y-1">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Objet
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl text-base bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-white"
+                  placeholder="Sujet de votre message"
+                />
+              </div>
+
+              <div className="flex flex-col transition-all duration-300 hover:-translate-y-1">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl text-base bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-white resize-none min-h-[150px]"
+                  placeholder="Décrivez votre projet ou votre demande..."
+                ></textarea>
+              </div>
+
+              <button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="w-full relative overflow-hidden px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none rounded-xl font-semibold text-base shadow-lg cursor-pointer transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-transparent border-t-white rounded-full animate-spin"></div>
+                      <span>Envoi en cours...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Envoyer le message</span>
+                      <Send size={20} />
+                    </>
+                  )}
+                </span>
+              </button>
+
+              {/* Status Messages */}
+              {status && (
+                <div className={`flex items-center gap-2 p-4 rounded-xl border font-medium animate-pulse ${
+                  status === 'success' 
+                    ? 'bg-green-100/50 dark:bg-green-900/20 border-green-200/50 dark:border-green-700/50 text-green-800 dark:text-green-400'
+                    : 'bg-red-100/50 dark:bg-red-900/20 border-red-200/50 dark:border-red-700/50 text-red-800 dark:text-red-400'
+                }`}>
+                  {status === 'success' ? (
+                    <CheckCircle size={20} />
+                  ) : (
+                    <AlertCircle size={20} />
+                  )}
+                  <span>
+                    {status === 'success' 
+                      ? 'Message envoyé avec succès ! Je vous répondrai bientôt.' 
+                      : 'Erreur lors de l\'envoi. Veuillez réessayer.'}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

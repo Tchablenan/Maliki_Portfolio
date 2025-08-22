@@ -15,7 +15,7 @@ function Hero() {
   const profileImage = "assets/profile.jpg";
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-800 to-violet-800 p-4 sm:p-6 md:p-8 lg:p-12">
+    <section className="w-full min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-800 to-violet-800 p-4 sm:p-6 md:p-8 lg:p-12" id="home">
       
       {/* Background decorative elements */}
       <div className="absolute inset-0 z-0">

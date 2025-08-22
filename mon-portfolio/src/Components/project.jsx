@@ -222,7 +222,7 @@ function Projects() {
   };
 
   return (
-    <section className="py-8 sm:py-12 lg:py-20 bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50 min-h-screen overflow-hidden">
+    <section className="py-8 sm:py-12 lg:py-20 bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50 min-h-screen overflow-hidden " id="projects">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         
         {/* Animations CSS */}
@@ -312,7 +312,7 @@ function Projects() {
         `}</style>
 
         {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16 ">
           <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl shadow-lg mb-4 sm:mb-6 animate-bounce hover:animate-pulse-glow transition-all duration-300">
             <ProjectIcon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
           </div>

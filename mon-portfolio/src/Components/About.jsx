@@ -35,7 +35,7 @@ function AboutSection() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 overflow-hidden"
+      className="relative py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 overflow-hidden"  id="about"
     >
       {/* Éléments de fond animés */}
       <div className="absolute inset-0">
