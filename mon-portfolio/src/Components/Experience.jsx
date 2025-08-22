@@ -175,9 +175,27 @@ const ChevronDownIcon = ({ className = "w-5 h-5" }) => (
 function Experience() {
   const [visibleItems, setVisibleItems] = useState(new Set());
   const [showAll, setShowAll] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const observerRef = useRef(null);
+  const elementsRef = useRef([]);
+
+  // Initialiser avec les premiers éléments visibles
+  useEffect(() => {
+    // Au chargement, marquer les premiers éléments comme visibles
+    const initialItems = new Set(['0', '1', '2', '3']);
+    setVisibleItems(initialItems);
+    
+    // Après un petit délai, commencer les animations séquentielles
+    const timer = setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
+    if (isInitialLoad) return;
+
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -186,105 +204,43 @@ function Experience() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: '20px' }
+      { 
+        threshold: 0.1, 
+        rootMargin: '50px 0px -100px 0px' 
+      }
     );
+
+    // Observer tous les éléments existants
+    elementsRef.current.forEach(el => {
+      if (el && observerRef.current) {
+        observerRef.current.observe(el);
+      }
+    });
 
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
     };
-  }, []);
+  }, [isInitialLoad, showAll]);
 
   const displayedExperiences = showAll ? experiences : experiences.slice(0, 4);
+
+  const handleShowAll = () => {
+    setShowAll(true);
+    // Ajouter les nouveaux éléments à la liste des visibles après un délai
+    setTimeout(() => {
+      const newItems = new Set(visibleItems);
+      for (let i = 4; i < experiences.length; i++) {
+        newItems.add(i.toString());
+      }
+      setVisibleItems(newItems);
+    }, 100);
+  };
 
   return (
     <section id="experience" className="py-8 sm:py-12 lg:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen overflow-hidden">
       <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8">
-        
-        <style jsx>{`
-          @keyframes fade-in-up {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-          
-          @keyframes bounce-in {
-            0% {
-              transform: scale(0);
-              opacity: 0;
-            }
-            50% {
-              transform: scale(1.1);
-            }
-            100% {
-              transform: scale(1);
-              opacity: 1;
-            }
-          }
-          
-          @keyframes spin-slow {
-            from {
-              transform: rotate(0deg);
-            }
-            to {
-              transform: rotate(360deg);
-            }
-          }
-          
-          @keyframes bounce-slow {
-            0%, 100% {
-              transform: translateY(0);
-            }
-            50% {
-              transform: translateY(-10px);
-            }
-          }
-          
-          @keyframes count-up {
-            from {
-              transform: translateY(20px);
-              opacity: 0;
-            }
-            to {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-          
-          .animate-fade-in-up {
-            animation: fade-in-up 0.8s ease-out;
-          }
-          
-          .animate-fade-in-up-delay {
-            animation: fade-in-up 0.8s ease-out 0.3s both;
-          }
-          
-          .animate-bounce-in {
-            animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-          }
-          
-          .animate-spin-slow {
-            animation: spin-slow 8s linear infinite;
-          }
-          
-          .animate-bounce-slow {
-            animation: bounce-slow 3s ease-in-out infinite;
-          }
-          
-          .animate-count-up {
-            animation: count-up 1s ease-out;
-          }
-          
-          .animate-fade-in {
-            animation: fade-in-up 0.5s ease-out;
-          }
-        `}</style>
         
         {/* Header Section */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
@@ -294,7 +250,7 @@ function Experience() {
           <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 animate-fade-in-up">
             Mon Parcours
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed animate-fade-in-up-delay">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed animate-fade-in-up">
             Un voyage professionnel entre l'Afrique et l'Asie, au service des infrastructures durables
           </p>
         </div>
@@ -303,7 +259,7 @@ function Experience() {
         <div className="relative max-w-4xl mx-auto">
           
           {/* Vertical Timeline Line */}
-          <div className="absolute left-4 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 via-purple-200 to-indigo-200 animate-pulse"></div>
+          <div className="absolute left-4 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 via-purple-200 to-indigo-200"></div>
           
           {/* Timeline Items */}
           <div className="space-y-4 sm:space-y-6 lg:space-y-8">
@@ -315,25 +271,26 @@ function Experience() {
                   key={index}
                   data-index={index}
                   ref={(el) => {
-                    if (el && observerRef.current) {
-                      observerRef.current.observe(el);
-                    }
+                    elementsRef.current[index] = el;
                   }}
                   className={`relative flex items-start gap-3 sm:gap-4 md:gap-6 transform transition-all duration-700 ease-out ${
                     isVisible 
                       ? 'translate-y-0 opacity-100' 
                       : 'translate-y-8 opacity-0'
                   }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
+                  style={{ transitionDelay: isInitialLoad ? `${index * 150}ms` : '0ms' }}
                 >
                   
                   {/* Timeline Dot */}
                   <div className="relative z-10 flex-shrink-0">
-                    <div className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 ${exp.colors.primary} rounded-full flex items-center justify-center shadow-lg border-2 sm:border-4 border-white transition-all duration-500 hover:scale-125 hover:rotate-12 hover:shadow-xl ${isVisible ? 'animate-bounce-in scale-100' : 'scale-0'}`}
-                         style={{ animationDelay: `${index * 200}ms` }}>
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 ${exp.colors.primary} rounded-full flex items-center justify-center shadow-lg border-2 sm:border-4 border-white transition-all duration-500 hover:scale-125 hover:rotate-12 hover:shadow-xl ${isVisible ? 'scale-100' : 'scale-0'}`}
+                         style={{ 
+                           transitionDelay: isInitialLoad ? `${index * 200}ms` : '0ms',
+                           animation: isVisible ? `bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${isInitialLoad ? `${index * 200}ms` : '0ms'} both` : 'none'
+                         }}>
                       {exp.type === 'education' ? 
-                        <EducationIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white animate-pulse" /> : 
-                        <WorkIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white animate-pulse" />
+                        <EducationIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" /> : 
+                        <WorkIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
                       }
                       {/* Ripple effect */}
                       <div className={`absolute inset-0 ${exp.colors.dot} rounded-full animate-ping opacity-30`}></div>
@@ -355,29 +312,29 @@ function Experience() {
                       </div>
                       
                       {/* Card Header */}
-                      <div className="p-3 sm:p-4 lg:p-6">
+                      <div className="p-3 sm:p-4 lg:p-6 relative z-10">
                         <div className="flex items-start justify-between gap-2 mb-2 sm:mb-3">
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-sm sm:text-base lg:text-lg xl:text-xl font-bold text-gray-900 leading-tight mb-1 group-hover:text-blue-600 transition-all duration-300 group-hover:scale-105 transform-gpu">
+                            <h3 className="text-sm sm:text-base lg:text-lg xl:text-xl font-bold text-gray-900 leading-tight mb-1 group-hover:text-blue-600 transition-all duration-300">
                               {exp.title}
                             </h3>
                             <p className="text-xs sm:text-sm lg:text-base font-semibold text-gray-700 mb-2 group-hover:text-indigo-600 transition-colors duration-300">
                               {exp.institution}
                             </p>
                           </div>
-                          <div className={`px-2 py-1 ${exp.colors.secondary} ${exp.colors.text} text-xs font-medium rounded-md flex-shrink-0 hover:scale-110 transition-transform duration-300 animate-fade-in`}>
+                          <div className={`px-2 py-1 ${exp.colors.secondary} ${exp.colors.text} text-xs font-medium rounded-md flex-shrink-0 hover:scale-110 transition-transform duration-300`}>
                             {exp.type === 'education' ? 'Formation' : 'Expérience'}
                           </div>
                         </div>
 
                         {/* Meta Information */}
                         <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 mb-3 sm:mb-4">
-                          <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 group-hover:animate-pulse">
-                            <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 animate-spin-slow" />
+                          <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                            <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                             <span className="text-xs sm:text-sm font-medium truncate">{exp.period}</span>
                           </div>
-                          <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 hover:text-purple-600 transition-colors duration-300 group-hover:animate-pulse">
-                            <LocationIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 animate-bounce-slow" />
+                          <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 hover:text-purple-600 transition-colors duration-300">
+                            <LocationIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                             <span className="text-xs sm:text-sm font-medium truncate">{exp.location}</span>
                           </div>
                         </div>
@@ -392,8 +349,7 @@ function Experience() {
                           {exp.skills.map((skill, skillIndex) => (
                             <span
                               key={skillIndex}
-                              className={`px-2 sm:px-3 py-1 text-xs font-medium rounded-full ${exp.colors.primary} text-white shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 transform-gpu animate-fade-in-up cursor-pointer`}
-                              style={{ animationDelay: `${(index * 200) + (skillIndex * 100)}ms` }}
+                              className={`px-2 sm:px-3 py-1 text-xs font-medium rounded-full ${exp.colors.primary} text-white shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-110 hover:-translate-y-1 transform-gpu cursor-pointer`}
                             >
                               {skill}
                             </span>
@@ -412,39 +368,70 @@ function Experience() {
         {!showAll && experiences.length > 4 && (
           <div className="text-center mt-8 sm:mt-12 lg:mt-16">
             <button
-              onClick={() => setShowAll(true)}
-              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 animate-bounce-in group"
+              onClick={handleShowAll}
+              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 group"
             >
-              <span className="group-hover:animate-pulse">Voir toutes les expériences</span>
+              <span>Voir toutes les expériences</span>
               <ChevronDownIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" />
             </button>
           </div>
         )}
 
-        {/* Professional Stats or Achievement Banner */}
+        {/* Professional Stats */}
         <div className="mt-12 sm:mt-16 lg:mt-20">
-          <div className="bg-white rounded-xl shadow-md hover:shadow-xl p-4 sm:p-6 lg:p-8 border border-gray-100 transition-all duration-500 hover:-translate-y-1 animate-fade-in-up">
+          <div className="bg-white rounded-xl shadow-md hover:shadow-xl p-4 sm:p-6 lg:p-8 border border-gray-100 transition-all duration-500 hover:-translate-y-1">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
               <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600 mb-1 group-hover:scale-125 transition-transform duration-300 animate-count-up">8+</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600 mb-1 group-hover:scale-125 transition-transform duration-300">8+</div>
                 <div className="text-xs sm:text-sm text-gray-600 group-hover:text-blue-600 transition-colors duration-300">Années d'expérience</div>
               </div>
               <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-1 group-hover:scale-125 transition-transform duration-300 animate-count-up" style={{ animationDelay: '0.2s' }}>3</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-1 group-hover:scale-125 transition-transform duration-300">3</div>
                 <div className="text-xs sm:text-sm text-gray-600 group-hover:text-purple-600 transition-colors duration-300">Pays d'intervention</div>
               </div>
               <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-emerald-600 mb-1 group-hover:scale-125 transition-transform duration-300 animate-count-up" style={{ animationDelay: '0.4s' }}>1</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-emerald-600 mb-1 group-hover:scale-125 transition-transform duration-300">1</div>
                 <div className="text-xs sm:text-sm text-gray-600 group-hover:text-emerald-600 transition-colors duration-300">Doctorat</div>
               </div>
               <div className="text-center group cursor-pointer">
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-orange-600 mb-1 group-hover:scale-125 transition-transform duration-300 animate-count-up" style={{ animationDelay: '0.6s' }}>5+</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-orange-600 mb-1 group-hover:scale-125 transition-transform duration-300">5+</div>
                 <div className="text-xs sm:text-sm text-gray-600 group-hover:text-orange-600 transition-colors duration-300">Projets majeurs</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes bounce-in {
+          0% {
+            transform: scale(0);
+            opacity: 0;
+          }
+          50% {
+            transform: scale(1.1);
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        
+        .animate-fade-in-up {
+          animation: fade-in-up 0.8s ease-out;
+        }
+      `}</style>
     </section>
   );
 }

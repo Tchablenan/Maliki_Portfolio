@@ -47,7 +47,7 @@ function Footer() {
                   </h3>
                   <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mt-2">
                     <Code size={16} className="text-blue-500" />
-                    <span className="text-sm font-medium">Ingénieur DevOps & Cloud</span>
+                    <span className="text-sm font-medium"></span>
                   </div>
                 </div>
                 

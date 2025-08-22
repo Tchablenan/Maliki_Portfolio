@@ -11,6 +11,7 @@ export default defineConfig({
   },
     // Pour le bon routing sur Vercel
   server: {
+    
     host: true,
   },
 })
