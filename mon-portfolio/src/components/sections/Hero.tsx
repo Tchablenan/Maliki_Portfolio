@@ -21,14 +21,14 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
           <Image src="/decor/squiggle-right.png" alt="" width={194} height={124} className="deco absolute -top-[2%] -right-[20%] z-20 hidden w-[190px] lg:block" />
           <Image src="/decor/pix-blue-4.png" alt="" width={60} height={120} className="absolute top-[60%] -right-[60px] hidden sm:block" />
 
-          <div className="arch h-[clamp(430px,62vw,760px)] w-full">
+          {/* Cut-out portrait: the headline stays readable above the head, as in the template */}
+          <div className="arch h-[clamp(420px,56vw,640px)] w-full">
             <Image
-              src={profileData.images.profile}
+              src={profileData.images.cutout}
               alt={t.photoAlt}
               priority
-              placeholder="blur"
-              sizes="(min-width: 640px) 470px, 82vw"
-              className="h-full w-full object-cover object-[50%_15%]"
+              sizes="(min-width: 640px) 705px, 123vw"
+              className="absolute bottom-0 left-1/2 h-auto w-[150%] max-w-none -translate-x-1/2"
             />
           </div>
 

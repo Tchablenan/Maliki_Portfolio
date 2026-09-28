@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 
 import profile from "@/assets/images/profile.jpg";
+import cutout from "@/assets/images/profile-cutout.png";
 import portrait from "@/assets/images/maliki.jpg";
 import road from "@/assets/images/road.jpg";
 import roadwork from "@/assets/images/roadwork.webp";
@@ -20,7 +21,7 @@ export const profileData = {
   city: "Abidjan, Côte d'Ivoire",
   cv: "/cv/CV-Maliki-Djandjieme.pdf",
   formEndpoint: "https://formspree.io/f/mwkzjrvd",
-  images: { profile, portrait },
+  images: { profile, portrait, cutout },
 } as const;
 
 export type SocialId = "linkedin" | "x" | "facebook" | "mail";
