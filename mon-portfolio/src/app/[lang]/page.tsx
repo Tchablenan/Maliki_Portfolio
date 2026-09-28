@@ -48,8 +48,8 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         <Projects t={dict.projects} />
         <KeywordBands words={dict.marquee} />
         <Experience t={dict.experience} />
-        <Research t={dict.research} />
         <Education t={dict.education} />
+        <Research t={dict.research} />
         <Contact t={dict.contact} />
       </main>
       <Footer t={dict.footer} />

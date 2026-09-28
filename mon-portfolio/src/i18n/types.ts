@@ -73,13 +73,18 @@ export interface Dictionary {
     follow: string;
   };
   hero: {
+    kicker: string;
     headline: string;
-    greeting: string;
     name: string;
+    role: string;
+    intro: string;
     badge: string;
     cta: string;
-    intro: string;
+    cv: string;
     photoAlt: string;
+    cardTitle: string;
+    cardText: string;
+    proof: { value: string; label: string }[];
   };
   partnersLabel: string;
   about: {

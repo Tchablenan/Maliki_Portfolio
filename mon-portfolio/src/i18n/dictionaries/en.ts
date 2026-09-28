@@ -2,20 +2,20 @@ import type { Dictionary } from "../types";
 
 export const en: Dictionary = {
   meta: {
-    title: "Dr Maliki Djandjieme — Geotechnical Engineer, PhD",
+    title: "Dr Maliki Djandjieme — Geotechnical & Infrastructure Consulting Engineer",
     description:
-      "PhD in geotechnical engineering (Yokohama National University) and JICA infrastructure consultant. Soil stabilization, foundations, roads and dams across West Africa.",
-    keywords: ["geotechnical engineering", "geotechnical engineer", "soil stabilization", "foundations", "dams", "roads", "JICA", "Togo", "Ivory Coast"],
+      "Geotechnical and infrastructure consulting engineer (PhD, Yokohama). Ground investigations, foundations, roads, dams and site supervision for project owners, design offices and donors across West Africa.",
+    keywords: ["geotechnical engineer", "geotechnical investigation", "foundations", "roads", "dams", "quality control", "owner's engineer", "Ivory Coast", "Togo", "Burkina Faso"],
   },
   nav: {
     items: [
       { id: "home", label: "Home" },
       { id: "about", label: "About" },
-      { id: "services", label: "Expertise" },
-      { id: "projects", label: "Projects" },
+      { id: "services", label: "Services" },
+      { id: "projects", label: "Track record" },
       { id: "experience", label: "Experience" },
-      { id: "research", label: "Research" },
       { id: "education", label: "Education" },
+      { id: "research", label: "Research" },
       { id: "contact", label: "Contact" },
     ],
     openMenu: "Open menu",
@@ -28,82 +28,92 @@ export const en: Dictionary = {
     follow: "Follow me",
   },
   hero: {
-    headline: "Geotechnics",
-    greeting: "Hello, I'm",
+    kicker: "Consulting engineer · Geotechnics & Infrastructure",
+    headline: "Solid infrastructure, from the ground up.",
     name: "Dr Maliki Djandjieme",
-    badge: "Available for consulting assignments",
-    cta: "Get in touch",
+    role: "PhD in geotechnical engineering.",
     intro:
-      "A Japan-trained PhD in geotechnical engineering, I design durable ground solutions for roads, dams and foundations across West Africa.",
+      "I help project owners, design offices and donors design, control and deliver roads, dams and foundations across West Africa.",
+    badge: "Available for new assignments",
+    cta: "Discuss your project",
+    cv: "Download CV",
     photoAlt: "Portrait of Dr Maliki Djandjieme at his desk",
+    cardTitle: "PhD · Yokohama",
+    cardText: "JICA consultant",
+    proof: [
+      { value: "8+", label: "years of experience" },
+      { value: "4,000 km", label: "of roads supervised" },
+      { value: "3", label: "countries of work" },
+      { value: "JICA", label: "infrastructure consultant" },
+    ],
   },
   partnersLabel: "Institutions and partners",
   about: {
     title: "About me",
     text:
-      "Civil and geotechnical engineer, I support infrastructure projects from soil investigation to site delivery, bridging applied research in Japan and fieldwork in West Africa.",
+      "A civil engineer specialised in geotechnics, I de-risk your projects from the design stage: well-understood ground means safer structures, controlled costs and fewer surprises on site.",
     yearsValue: "8+",
     yearsLabel: "Years of experience",
     statement:
-      "A PhD graduate of Yokohama National University, I now coordinate JICA infrastructure programmes across Togo, Burkina Faso and Côte d'Ivoire.",
-    cta: "Let's work together",
+      "From the laboratory to the construction site, I combine scientific rigour with field pragmatism to deliver reliable, cost-effective solutions that make the most of local materials.",
+    cta: "Discuss your project",
     cv: "Download CV",
     photoAlt: "Maliki Djandjieme outdoors, holding his diploma",
     portraitAlt: "Portrait of Maliki Djandjieme",
     stats: [
-      { value: "4", label: "Countries of work" },
-      { value: "4,000 km", label: "of rural roads supervised" },
-      { value: "4", label: "Scientific publications" },
+      { value: "4", label: "countries of experience" },
+      { value: "FR · EN · JA", label: "working languages" },
+      { value: "UEMOA", label: "regional coordination" },
     ],
   },
   services: {
-    kicker: "Expertise",
-    lead: "Well-understood ground for structures that last.",
+    kicker: "Services",
+    lead: "Reliable, cost-effective solutions suited to the ground.",
     text:
-      "From laboratory testing to site supervision, a scientific approach serving reliable, cost-effective and sustainable projects.",
-    title: "Expertise.",
+      "A complete offer to secure your projects, from ground investigation to handover of the works.",
+    title: "Services.",
     items: [
       {
         icon: 1,
-        title: "Geotechnics & testing",
-        description: "Site investigations, laboratory and in-situ testing to validate design assumptions and construction quality.",
-        tags: ["CBR", "Triaxial", "SPT"],
-      },
-      {
-        icon: 2,
-        title: "Soil stabilization",
-        description: "Treatment of sands and laterites, alternative binders based on paper sludge ash.",
-        tags: ["PS ash", "Laterite", "Eco-materials"],
+        title: "Geotechnical studies",
+        description: "Site investigations, laboratory and in-situ testing, soil reports and design recommendations.",
+        tags: ["Boreholes", "Lab testing", "Reports"],
       },
       {
         icon: 3,
         title: "Foundations & earthworks",
-        description: "Foundation design, levelling, compaction and slope stability on difficult ground.",
-        tags: ["Foundations", "Compaction", "Slopes"],
+        description: "Foundation design, slope stability and soil treatment with local materials to reduce costs.",
+        tags: ["Foundations", "Slopes", "Soil treatment"],
       },
       {
         icon: 4,
         title: "Roads & pavements",
         description: "Design, rehabilitation and maintenance of rural and urban roads, drainage and stormwater systems.",
-        tags: ["Pavements", "Drainage", "Alizé"],
+        tags: ["Pavement design", "Rehabilitation", "Drainage"],
       },
       {
         icon: 5,
         title: "Dams & hydraulics",
         description: "Rehabilitation of embankments and spillways, fill material selection, dredging and bank protection.",
-        tags: ["Embankments", "Spillways", "Hydrology"],
+        tags: ["Embankments", "Spillways", "Reservoirs"],
+      },
+      {
+        icon: 2,
+        title: "Quality control & site supervision",
+        description: "Works supervision, material and compaction control, sign-off with the control missions.",
+        tags: ["CBR", "Proctor", "Handover"],
       },
       {
         icon: 6,
-        title: "Project management",
-        description: "Formulation, monitoring and evaluation, and multi-country coordination with technical and financial partners.",
-        tags: ["JICA", "UEMOA", "M&E"],
+        title: "Owner's engineer",
+        description: "Project formulation, monitoring and evaluation, and coordination with technical and financial partners.",
+        tags: ["Owner's engineer", "M&E", "Donors"],
       },
     ],
   },
   projects: {
-    title: "Selected projects",
-    text: "A selection of programmes, research and field works carried out in Japan and West Africa.",
+    title: "Track record",
+    text: "Projects delivered for public owners, donors and universities in Togo, Burkina Faso, Côte d'Ivoire and Japan.",
     linkLabel: "Learn more",
     items: [
       {
@@ -112,26 +122,8 @@ export const en: Dictionary = {
         period: "2024 — present",
         place: "JICA · Togo, Burkina Faso, Côte d'Ivoire",
         description:
-          "Regional coordination of the corridor master plan for the West Africa Growth Ring: transport, urban planning and mobility.",
-        tags: ["Regional planning", "Multi-country", "Corridors"],
-      },
-      {
-        id: "phd",
-        title: "Sand stabilization with paper sludge ash",
-        period: "2020 — 2023",
-        place: "Yokohama National University, Japan",
-        description:
-          "Doctoral research: a PS ash-based stabilizer to reinforce backfill around buried pipelines and manholes.",
-        tags: ["Doctoral research", "Recycled materials", "Publication"],
-      },
-      {
-        id: "liquefaction",
-        title: "Triaxial testing & liquefaction",
-        period: "2023 — 2024",
-        place: "Yokohama National University, Japan",
-        description:
-          "Stabilization studies against liquefaction and supervision of students on geotechnical testing methods.",
-        tags: ["Cyclic triaxial", "Seismic zones", "Mentoring"],
+          "Regional coordination of the corridor master plan for the West Africa Growth Ring: transport, urban planning and mobility, working with governments and UEMOA.",
+        tags: ["Owner's engineer", "Multi-country", "Planning"],
       },
       {
         id: "rural-roads",
@@ -139,8 +131,8 @@ export const en: Dictionary = {
         period: "2020 — 2023",
         place: "Ministry of Agriculture · Togo",
         description:
-          "Execution files, quantities and cost estimates, supervision of earthworks and compaction alongside the control missions.",
-        tags: ["Supervision", "Quantities & estimates", "Quality control"],
+          "Execution files, quantities and cost estimates, then supervision of earthworks and compaction alongside the control missions.",
+        tags: ["Roads", "Quantities & estimates", "Supervision"],
       },
       {
         id: "kangounou",
@@ -148,17 +140,8 @@ export const en: Dictionary = {
         period: "2018 — 2019",
         place: "Kountoire, Togo",
         description:
-          "Embankment and spillway: topographic surveys, local fill material selection, slope stabilization and reservoir dredging.",
-        tags: ["Dam", "Slope stability", "Dredging"],
-      },
-      {
-        id: "laterite",
-        title: "Characterization of lateritic soils",
-        period: "2014 — 2015",
-        place: "LEMHaB — 2iE, Burkina Faso",
-        description:
-          "Grain size, Atterberg limits, CBR and mechanical tests to make the most of local materials in road structures.",
-        tags: ["Atterberg", "CBR", "Local materials"],
+          "Embankment and spillway restored: topographic surveys, local fill selection, slope stabilization and dredging to recover storage capacity.",
+        tags: ["Dam", "Slopes", "Dredging"],
       },
       {
         id: "urban-roads",
@@ -166,12 +149,39 @@ export const en: Dictionary = {
         period: "2013",
         place: "CECO BTP · Lomé, Togo",
         description:
-          "Earthworks monitoring and construction of sub-base, base and wearing courses, with material quality control.",
-        tags: ["Pavement layers", "Asphalt", "Urban drainage"],
+          "Earthworks monitoring, construction of sub-base, base and wearing courses, and material quality control.",
+        tags: ["Urban roads", "Asphalt", "Quality control"],
+      },
+      {
+        id: "laterite",
+        title: "Making the most of lateritic soils",
+        period: "2014 — 2015",
+        place: "LEMHaB — 2iE, Burkina Faso",
+        description:
+          "Characterization of laterites (grain size, Atterberg, CBR) for use in pavement layers, reducing reliance on imported materials.",
+        tags: ["Laterite", "CBR", "Local materials"],
+      },
+      {
+        id: "phd",
+        title: "Low-carbon binder from recycled ash",
+        period: "2020 — 2023",
+        place: "Yokohama National University, Japan",
+        description:
+          "Development of a paper-sludge-ash stabilizer to reinforce backfill around buried networks, published by Elsevier.",
+        tags: ["Innovation", "Circular economy", "Publication"],
+      },
+      {
+        id: "liquefaction",
+        title: "Earthquake-resistant fills",
+        period: "2023 — 2024",
+        place: "Yokohama National University, Japan",
+        description:
+          "Triaxial testing and stabilization solutions against liquefaction, while supervising a team of students.",
+        tags: ["Triaxial", "Liquefaction", "Mentoring"],
       },
     ],
   },
-  marquee: ["Geotechnics", "Soil stabilization", "Foundations", "Dams", "Roads", "Eco-materials", "Triaxial testing", "International cooperation"],
+  marquee: ["Geotechnical studies", "Foundations", "Roads", "Dams", "Quality control", "Local materials", "Owner's engineer", "West Africa"],
   experience: {
     title: "Experience",
     text: "More than eight years across design offices, construction sites, laboratories and international cooperation.",
@@ -231,8 +241,8 @@ export const en: Dictionary = {
     ],
   },
   research: {
-    title: "Research & awards",
-    text: "Published work on sustainable ground materials, awarded in Japan and supported by JICA.",
+    title: "Scientific expertise",
+    text: "Expertise backed by international publications and recognised by JICA.",
     publicationsTitle: "Publications",
     publications: [
       {
