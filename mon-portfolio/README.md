@@ -54,4 +54,5 @@ src/
 
 ## Déploiement (Vercel)
 
-Dans les réglages du projet Vercel : **Root Directory** = `mon-portfolio`, **Framework Preset** = `Next.js` (commande de build et dossier de sortie par défaut).
+Dans les réglages du projet Vercel : **Root Directory** = `mon-portfolio`.
+Le fichier `vercel.json` force le framework Next.js, même si le projet Vercel est encore réglé sur « Vite ».
