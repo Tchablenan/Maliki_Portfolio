@@ -14,7 +14,7 @@ import dam from "@/assets/images/dam.png";
 export const profileData = {
   name: "Maliki Otieboame Djandjieme",
   shortName: "Maliki",
-  siteUrl: "https://maliki-portfolio-ygmu.vercel.app",
+  siteUrl: "https://maliki-portfolio-tchablenans-projects.vercel.app",
   emails: ["djandjiememaliki@yahoo.com", "kdjandjieme@gmail.com"],
   phone: { display: "+225 07 89 92 97 61", href: "tel:+2250789929761" },
   city: "Abidjan, Côte d'Ivoire",
