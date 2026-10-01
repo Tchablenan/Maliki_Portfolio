@@ -25,7 +25,7 @@ as $$
   );
 $$;
 revoke all on function public.is_admin() from public;
-grant execute on function public.is_admin() to anon, authenticated;
+grant execute on function public.is_admin() to authenticated;
 
 drop policy if exists "admins: lecture de sa propre ligne" on public.admins;
 create policy "admins: lecture de sa propre ligne" on public.admins
@@ -142,6 +142,7 @@ as $$
   group by d
   order by d;
 $$;
+revoke all on function public.daily_page_views(integer) from public, anon;
 grant execute on function public.daily_page_views(integer) to authenticated;
 
 -- ---------------------------------------------------------------------------
