@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
 import { Header } from "@/components/Header";
-import { PageViewTracker } from "@/components/PageViewTracker";
 import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Education } from "@/components/sections/Education";
@@ -60,7 +59,6 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         <Contact t={dict.contact} settings={settings} lang={lang} />
       </main>
       <Footer t={dict.footer} settings={settings} />
-      <PageViewTracker lang={lang} />
     </>
   );
 }
