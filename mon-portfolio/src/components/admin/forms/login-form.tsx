@@ -26,7 +26,7 @@ export function LoginForm({ notice }: { notice?: string }) {
       )}
       <div className="flex flex-col gap-2">
         <Label htmlFor="email">E-mail</Label>
-        <Input id="email" name="email" type="email" autoComplete="email" required placeholder="vous@exemple.com" />
+        <Input id="email" name="email" type="email" autoComplete="email" required placeholder="vous@exemple.com" defaultValue={state.email} key={state.email} />
       </div>
       <div className="flex flex-col gap-2">
         <Label htmlFor="password">Mot de passe</Label>
