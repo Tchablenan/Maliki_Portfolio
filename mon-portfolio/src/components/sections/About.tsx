@@ -1,11 +1,14 @@
 import Image from "next/image";
 
 import { DownloadIcon } from "@/components/Icons";
-import { profileData } from "@/data/profile";
-import { revealDelay } from "@/lib/reveal";
+import { defaultImages, site } from "@/data/profile";
 import type { Dictionary } from "@/i18n/types";
+import { pickImage } from "@/lib/media";
+import { revealDelay } from "@/lib/reveal";
+import type { SiteSettings } from "@/lib/settings";
 
-export function About({ t }: { t: Dictionary["about"] }) {
+export function About({ t, settings }: { t: Dictionary["about"]; settings: SiteSettings }) {
+  const photo = pickImage(settings.media.aboutPhoto, defaultImages.aboutPhoto) ?? defaultImages.aboutPhoto;
   return (
     <section id="about" className="relative overflow-hidden py-20 md:py-[100px]">
       <Image src="/decor/pix-black-h.png" alt="" width={121} height={61} className="deco absolute bottom-0 left-[120px] hidden md:block" />
@@ -21,11 +24,12 @@ export function About({ t }: { t: Dictionary["about"] }) {
           </div>
           <div data-reveal="zoom" className="relative mt-14 h-[400px] w-[300px] max-w-full overflow-hidden lg:mt-24">
             <Image
-              src={profileData.images.portrait}
+              src={photo}
               alt={t.photoAlt}
-              placeholder="blur"
+              fill
+              placeholder={typeof photo === "string" ? "empty" : "blur"}
               sizes="300px"
-              className="h-full w-full scale-110 object-cover object-top transition-transform duration-700 hover:scale-100"
+              className="scale-110 object-cover object-top transition-transform duration-700 hover:scale-100"
             />
           </div>
         </div>
@@ -64,7 +68,7 @@ export function About({ t }: { t: Dictionary["about"] }) {
               {t.cta}
             </a>
             <a
-              href={profileData.cv}
+              href={settings.media.cv || site.defaultCv}
               download
               className="inline-flex items-center gap-2 rounded-full border-2 border-fg px-8 py-3 text-lg font-medium text-fg transition-colors duration-500 hover:bg-fg hover:text-bg"
             >

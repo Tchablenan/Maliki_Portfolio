@@ -1,7 +1,6 @@
 import { AsteriskIcon } from "@/components/Icons";
-import { partners } from "@/data/profile";
 
-export function Partners({ label }: { label: string }) {
+export function Partners({ label, partners }: { label: string; partners: string[] }) {
   // Rendered twice so the -50% translation loops seamlessly.
   const track = [...partners, ...partners];
 

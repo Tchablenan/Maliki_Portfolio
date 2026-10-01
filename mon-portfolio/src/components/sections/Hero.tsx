@@ -1,69 +1,83 @@
 import Image from "next/image";
 
-import { SocialIcon } from "@/components/Icons";
-import { profileData, socials } from "@/data/profile";
+import { DownloadIcon, SocialIcon } from "@/components/Icons";
+import { defaultImages, site } from "@/data/profile";
 import type { Dictionary } from "@/i18n/types";
+import { pickImage } from "@/lib/media";
+import { revealDelay } from "@/lib/reveal";
+import { socialLinks, type SiteSettings } from "@/lib/settings";
 
-export function Hero({ t }: { t: Dictionary["hero"] }) {
+export function Hero({ t, settings }: { t: Dictionary["hero"]; settings: SiteSettings }) {
+  const socials = socialLinks(settings);
+  const photo = pickImage(settings.media.heroPhoto, defaultImages.heroPhoto) ?? defaultImages.heroPhoto;
   return (
-    <section id="home" className="relative overflow-hidden pt-28 pb-16 md:pt-32 md:pb-24">
-      <Image src="/decor/pix-black-v.png" alt="" width={60} height={121} priority className="deco absolute top-0 left-0 hidden md:block" />
+    <section id="home" className="relative overflow-hidden pt-28 pb-20 md:pt-36 lg:pb-28">
       <Image src="/decor/pix-blue-2.png" alt="" width={30} height={90} className="absolute right-0 bottom-0 hidden md:block" />
 
-      <div className="site-container">
-        <h1 className="animate-float relative z-0 text-center font-display text-[clamp(3.25rem,11vw,8.75rem)] leading-[1.25] text-fg">
-          {t.headline}
-        </h1>
-
-        <div className="relative z-10 mx-auto -mt-[clamp(2.5rem,7vw,6.5rem)] w-[min(470px,82vw)]">
-          <Image src="/decor/pix-blue-2.png" alt="" width={30} height={90} className="absolute top-[40%] -left-[30px] hidden sm:block" />
-          <Image src="/decor/squiggle-left.png" alt="" width={176} height={93} className="deco absolute top-[50%] -left-[40%] hidden w-[170px] lg:block" />
-          <Image src="/decor/squiggle-right.png" alt="" width={194} height={124} className="deco absolute -top-[2%] -right-[20%] z-20 hidden w-[190px] lg:block" />
-          <Image src="/decor/pix-blue-4.png" alt="" width={60} height={120} className="absolute top-[60%] -right-[60px] hidden sm:block" />
-
-          <div className="arch h-[clamp(430px,62vw,760px)] w-full">
-            <Image
-              src={profileData.images.profile}
-              alt={t.photoAlt}
-              priority
-              placeholder="blur"
-              sizes="(min-width: 640px) 470px, 82vw"
-              className="h-full w-full object-cover object-[50%_15%]"
-            />
-          </div>
-
-          <a
-            href="#contact"
-            className="relative z-30 mx-auto -mt-[30px] flex w-fit items-center justify-center rounded-full border-2 border-accent bg-bg px-10 py-3 text-lg font-semibold text-fg transition-colors duration-500 hover:bg-fg hover:text-bg md:px-12 md:text-xl"
-          >
-            {t.cta}
-          </a>
-
-          <p className="glass relative z-30 mx-auto mt-6 flex w-fit items-center gap-4 rounded-full px-6 py-3 text-base font-medium text-fg lg:absolute lg:bottom-[27%] lg:-left-[48%] lg:mt-0 lg:px-8 lg:text-lg">
-            <span className="online-dot" aria-hidden />
-            {t.badge}
+      <div className="site-container grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+        {/* Copy */}
+        <div className="flex flex-col items-start gap-6 md:gap-7">
+          {settings.available && (
+            <p className="glass flex items-center gap-3 rounded-full px-5 py-2 text-sm font-medium text-fg">
+              <span className="online-dot" aria-hidden />
+              {t.badge}
+            </p>
+          )}
+          <p className="text-xs font-semibold tracking-[0.2em] text-accent uppercase md:text-sm">{t.kicker}</p>
+          <h1 className="font-display text-[clamp(2.6rem,5.2vw,4.75rem)] leading-[1.08] text-fg">{t.headline}</h1>
+          <p className="max-w-xl text-lg leading-8 text-muted md:text-xl">
+            <span className="font-semibold text-fg">{t.name}</span>, {t.role} {t.intro}
           </p>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="#contact"
+              className="rounded-full bg-accent px-8 py-3.5 text-lg font-medium text-white transition-colors duration-500 hover:bg-fg hover:text-bg"
+            >
+              {t.cta}
+            </a>
+            <a
+              href={settings.media.cv || site.defaultCv}
+              download
+              className="inline-flex items-center gap-2 rounded-full border-2 border-fg px-7 py-3 text-lg font-medium text-fg transition-colors duration-500 hover:bg-fg hover:text-bg"
+            >
+              <DownloadIcon size={20} />
+              {t.cv}
+            </a>
+          </div>
+          <dl className="mt-2 grid w-full grid-cols-2 gap-6 border-t border-line pt-6 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+            {t.proof.map((p, i) => (
+              <div key={p.label} data-reveal style={revealDelay(i * 100)} className="flex flex-col-reverse">
+                <dt className="text-sm text-muted">{p.label}</dt>
+                <dd className="font-display text-2xl whitespace-nowrap text-fg md:text-3xl">{p.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <div className="mt-12 grid items-end gap-8 lg:-mt-28 lg:grid-cols-2">
-          <div data-reveal>
-            <p className="font-display text-3xl text-fg md:text-[40px] md:leading-[60px]">{t.greeting}</p>
-            <p className="mt-2 font-display text-[clamp(2.75rem,6vw,5rem)] leading-[1.15] text-fg">{t.name}</p>
+        {/* Portrait */}
+        <div className="relative mx-auto w-full max-w-[440px] pr-5 pb-5">
+          <div aria-hidden className="absolute top-5 right-0 bottom-0 left-5 rounded-t-[240px] bg-accent" />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-t-[240px] bg-field">
+            <Image
+              src={photo}
+              alt={t.photoAlt}
+              fill
+              priority
+              placeholder={typeof photo === "string" ? "empty" : "blur"}
+              sizes="(min-width: 1024px) 420px, 90vw"
+              className="object-cover object-[50%_20%]"
+            />
           </div>
-          <p data-reveal className="max-w-[410px] text-lg leading-[30px] text-muted lg:ml-auto lg:text-right lg:text-xl">
-            {t.intro}
-          </p>
+          <Image src="/decor/pix-black-v.png" alt="" width={60} height={121} className="deco absolute top-10 -left-8 hidden sm:block" />
+          <Image src="/decor/squiggle-right.png" alt="" width={194} height={124} className="deco absolute -top-10 -right-10 hidden w-36 lg:block" />
+          <div className="absolute bottom-0 -left-2 rounded-2xl bg-bg px-6 py-4 shadow-xl ring-1 ring-line sm:-left-8">
+            <p className="font-display text-xl text-fg">{t.cardTitle}</p>
+            <p className="text-sm text-muted">{t.cardText}</p>
+          </div>
         </div>
       </div>
 
-      <a
-        href={`mailto:${profileData.emails[0]}`}
-        className="absolute top-1/2 left-0 hidden origin-center -translate-x-[38%] -rotate-90 text-lg font-medium text-muted transition-colors duration-500 hover:text-accent 2xl:block"
-      >
-        {profileData.emails[0]}
-      </a>
-
-      <ul className="absolute top-[22%] right-[60px] hidden flex-col gap-5 2xl:flex">
+      <ul className="absolute top-1/2 right-6 hidden -translate-y-1/2 flex-col gap-4 2xl:flex">
         {socials.map((s) => (
           <li key={s.id}>
             <a
@@ -71,9 +85,9 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
               target={s.id === "mail" ? undefined : "_blank"}
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="grid size-[60px] place-items-center rounded-full bg-fg text-bg transition-colors duration-500 hover:text-accent"
+              className="grid size-12 place-items-center rounded-full bg-fg text-bg transition-colors duration-500 hover:text-accent"
             >
-              <SocialIcon id={s.id} />
+              <SocialIcon id={s.id} size={20} />
             </a>
           </li>
         ))}

@@ -2,20 +2,20 @@ import type { Dictionary } from "../types";
 
 export const fr: Dictionary = {
   meta: {
-    title: "Dr Maliki Djandjieme — Ingénieur géotechnicien, PhD",
+    title: "Dr Maliki Djandjieme — Ingénieur conseil en géotechnique & infrastructures",
     description:
-      "Docteur en géotechnique (Université Nationale de Yokohama) et consultant JICA en infrastructures. Stabilisation des sols, fondations, routes et barrages en Afrique de l'Ouest.",
-    keywords: ["géotechnique", "ingénieur géotechnicien", "stabilisation des sols", "fondations", "barrages", "routes", "JICA", "Togo", "Côte d'Ivoire"],
+      "Ingénieur conseil en géotechnique et infrastructures (PhD, Yokohama). Études de sol, fondations, routes, barrages et suivi de chantier pour maîtres d'ouvrage, bureaux d'études et bailleurs en Afrique de l'Ouest.",
+    keywords: ["ingénieur géotechnicien", "étude géotechnique", "fondations", "routes", "barrages", "contrôle qualité", "assistance à maîtrise d'ouvrage", "Côte d'Ivoire", "Togo", "Burkina Faso"],
   },
   nav: {
     items: [
       { id: "home", label: "Accueil" },
       { id: "about", label: "À propos" },
-      { id: "services", label: "Expertises" },
-      { id: "projects", label: "Projets" },
+      { id: "services", label: "Services" },
+      { id: "projects", label: "Références" },
       { id: "experience", label: "Parcours" },
-      { id: "research", label: "Recherche" },
       { id: "education", label: "Formation" },
+      { id: "research", label: "Recherche" },
       { id: "contact", label: "Contact" },
     ],
     openMenu: "Ouvrir le menu",
@@ -28,82 +28,92 @@ export const fr: Dictionary = {
     follow: "Me suivre",
   },
   hero: {
-    headline: "Géotechnicien",
-    greeting: "Bonjour, je suis",
+    kicker: "Ingénieur conseil · Géotechnique & Infrastructures",
+    headline: "Des infrastructures solides, dès le sol.",
     name: "Dr Maliki Djandjieme",
-    badge: "Disponible pour des missions d'expertise",
-    cta: "Me contacter",
+    role: "docteur en géotechnique.",
     intro:
-      "Docteur en géotechnique formé au Japon, je conçois des solutions de sol durables pour les routes, barrages et fondations d'Afrique de l'Ouest.",
+      "J'accompagne maîtres d'ouvrage, bureaux d'études et bailleurs dans la conception, le contrôle et la réalisation de routes, barrages et fondations en Afrique de l'Ouest.",
+    badge: "Disponible pour de nouvelles missions",
+    cta: "Discuter de votre projet",
+    cv: "Télécharger le CV",
     photoAlt: "Portrait du Dr Maliki Djandjieme à son bureau",
+    cardTitle: "PhD · Yokohama",
+    cardText: "Consultant JICA",
+    proof: [
+      { value: "8+", label: "ans d'expérience" },
+      { value: "4 000 km", label: "de routes suivies" },
+      { value: "3", label: "pays d'intervention" },
+      { value: "JICA", label: "consultant infrastructures" },
+    ],
   },
   partnersLabel: "Institutions et partenaires",
   about: {
     title: "À propos",
     text:
-      "Ingénieur civil et géotechnicien, j'accompagne les projets d'infrastructures de l'étude de sol jusqu'au chantier, entre recherche appliquée au Japon et terrain en Afrique de l'Ouest.",
+      "Ingénieur civil spécialisé en géotechnique, je sécurise vos projets dès la phase d'étude : un sol bien compris, ce sont des ouvrages plus sûrs, des coûts maîtrisés et moins d'imprévus sur le chantier.",
     yearsValue: "8+",
     yearsLabel: "Années d'expérience",
     statement:
-      "Docteur de l'Université Nationale de Yokohama, je coordonne aujourd'hui des programmes d'infrastructures pour la JICA entre le Togo, le Burkina Faso et la Côte d'Ivoire.",
-    cta: "Travaillons ensemble",
+      "Du laboratoire au chantier, je combine rigueur scientifique et pragmatisme de terrain pour livrer des solutions fiables, économiques et adaptées aux matériaux locaux.",
+    cta: "Discuter de votre projet",
     cv: "Télécharger le CV",
     photoAlt: "Maliki Djandjieme en extérieur, tenant son diplôme",
     portraitAlt: "Portrait de Maliki Djandjieme",
     stats: [
-      { value: "4", label: "Pays d'intervention" },
-      { value: "4 000 km", label: "de routes rurales suivies" },
-      { value: "4", label: "Publications scientifiques" },
+      { value: "4", label: "pays d'expérience" },
+      { value: "FR · EN · JA", label: "langues de travail" },
+      { value: "UEMOA", label: "coordination régionale" },
     ],
   },
   services: {
-    kicker: "Expertises",
-    lead: "Des sols maîtrisés pour des ouvrages qui durent.",
+    kicker: "Services",
+    lead: "Des solutions fiables, économiques et adaptées au terrain.",
     text:
-      "De l'essai en laboratoire à la supervision de chantier, une approche scientifique au service de projets fiables, économes et durables.",
-    title: "Expertises.",
+      "Une offre complète pour sécuriser vos projets, de l'étude de sol à la réception des travaux.",
+    title: "Services.",
     items: [
       {
         icon: 1,
-        title: "Géotechnique & essais",
-        description: "Campagnes d'investigation, essais en laboratoire et in situ pour valider les hypothèses de conception.",
-        tags: ["CBR", "Triaxial", "SPT"],
-      },
-      {
-        icon: 2,
-        title: "Stabilisation des sols",
-        description: "Traitement des sables et latérites, liants alternatifs à base de cendres de boues papetières.",
-        tags: ["Cendres PS", "Latérite", "Éco-matériaux"],
+        title: "Études géotechniques",
+        description: "Campagnes de reconnaissance, essais en laboratoire et in situ, rapports de sol et recommandations de conception.",
+        tags: ["Sondages", "Essais labo", "Rapports"],
       },
       {
         icon: 3,
         title: "Fondations & terrassements",
-        description: "Dimensionnement des fondations, nivellement, compactage et stabilité des talus en terrain difficile.",
-        tags: ["Fondations", "Compactage", "Talus"],
+        description: "Dimensionnement des fondations, stabilité des talus et traitement des sols avec les matériaux locaux pour réduire les coûts.",
+        tags: ["Fondations", "Talus", "Traitement des sols"],
       },
       {
         icon: 4,
         title: "Routes & chaussées",
         description: "Conception, réhabilitation et entretien de routes rurales et urbaines, drainage et assainissement.",
-        tags: ["Chaussées", "Drainage", "Alizé"],
+        tags: ["Dimensionnement", "Réhabilitation", "Drainage"],
       },
       {
         icon: 5,
         title: "Barrages & hydraulique",
         description: "Réhabilitation de digues et déversoirs, choix des matériaux de remblai, curage et protection des berges.",
-        tags: ["Digues", "Déversoirs", "Hydrologie"],
+        tags: ["Digues", "Déversoirs", "Retenues"],
+      },
+      {
+        icon: 2,
+        title: "Contrôle qualité & chantier",
+        description: "Suivi des travaux, contrôle des matériaux et du compactage, validation avec les missions de contrôle.",
+        tags: ["CBR", "Proctor", "Réception"],
       },
       {
         icon: 6,
-        title: "Gestion de projets",
-        description: "Formulation, suivi-évaluation et coordination multi-pays avec les partenaires techniques et financiers.",
-        tags: ["JICA", "UEMOA", "Suivi-évaluation"],
+        title: "Assistance à maîtrise d'ouvrage",
+        description: "Formulation de projets, suivi-évaluation et coordination avec les partenaires techniques et financiers.",
+        tags: ["AMO", "Suivi-évaluation", "Bailleurs"],
       },
     ],
   },
   projects: {
-    title: "Projets marquants",
-    text: "Une sélection de programmes, recherches et chantiers menés au Japon et en Afrique de l'Ouest.",
+    title: "Références",
+    text: "Des projets menés pour des maîtres d'ouvrage publics, des bailleurs et des universités, au Togo, au Burkina Faso, en Côte d'Ivoire et au Japon.",
     linkLabel: "En savoir plus",
     items: [
       {
@@ -112,26 +122,8 @@ export const fr: Dictionary = {
         period: "2024 — aujourd'hui",
         place: "JICA · Togo, Burkina Faso, Côte d'Ivoire",
         description:
-          "Coordination régionale du plan directeur des corridors pour l'anneau de croissance en Afrique de l'Ouest : transport, urbanisme et mobilité.",
-        tags: ["Planification régionale", "Multi-pays", "Corridors"],
-      },
-      {
-        id: "phd",
-        title: "Stabilisation du sable par cendres de boues papetières",
-        period: "2020 — 2023",
-        place: "Université Nationale de Yokohama, Japon",
-        description:
-          "Thèse de doctorat : un stabilisant à base de cendres PS pour renforcer les remblais autour des conduites et regards enterrés.",
-        tags: ["Recherche doctorale", "Matériaux recyclés", "Publication"],
-      },
-      {
-        id: "liquefaction",
-        title: "Essais triaxiaux & liquéfaction",
-        period: "2023 — 2024",
-        place: "Université Nationale de Yokohama, Japon",
-        description:
-          "Études de stabilisation contre la liquéfaction et encadrement des étudiants sur les essais géotechniques.",
-        tags: ["Triaxial cyclique", "Zone sismique", "Encadrement"],
+          "Coordination régionale du plan directeur des corridors de l'anneau de croissance en Afrique de l'Ouest : transport, urbanisme et mobilité, en lien avec les États et l'UEMOA.",
+        tags: ["AMO", "Multi-pays", "Planification"],
       },
       {
         id: "rural-roads",
@@ -139,8 +131,8 @@ export const fr: Dictionary = {
         period: "2020 — 2023",
         place: "Ministère de l'Agriculture · Togo",
         description:
-          "Dossiers d'exécution, métrés et devis, supervision des terrassements et du compactage avec les missions de contrôle.",
-        tags: ["Supervision", "Métrés & devis", "Contrôle qualité"],
+          "Dossiers d'exécution, métrés et devis, puis supervision des terrassements et du compactage avec les missions de contrôle.",
+        tags: ["Routes", "Métrés & devis", "Supervision"],
       },
       {
         id: "kangounou",
@@ -148,17 +140,8 @@ export const fr: Dictionary = {
         period: "2018 — 2019",
         place: "Kountoire, Togo",
         description:
-          "Digue et déversoir : études topographiques, choix des matériaux de remblai locaux, stabilisation des talus et curage de la retenue.",
-        tags: ["Barrage", "Stabilité des talus", "Curage"],
-      },
-      {
-        id: "laterite",
-        title: "Caractérisation des sols latéritiques",
-        period: "2014 — 2015",
-        place: "LEMHaB — 2iE, Burkina Faso",
-        description:
-          "Granulométrie, limites d'Atterberg, CBR et essais mécaniques pour valoriser les matériaux locaux en structures routières.",
-        tags: ["Atterberg", "CBR", "Matériaux locaux"],
+          "Digue et déversoir remis en état : topographie, choix des remblais locaux, stabilisation des talus et curage pour restaurer la retenue.",
+        tags: ["Barrage", "Talus", "Curage"],
       },
       {
         id: "urban-roads",
@@ -166,12 +149,39 @@ export const fr: Dictionary = {
         period: "2013",
         place: "CECO BTP · Lomé, Togo",
         description:
-          "Suivi des terrassements et mise en œuvre des couches de fondation, de base et de roulement, contrôle des matériaux.",
-        tags: ["Couches de chaussée", "Enrobés", "Drainage urbain"],
+          "Suivi des terrassements, mise en œuvre des couches de fondation, de base et de roulement, contrôle des matériaux.",
+        tags: ["Voirie", "Enrobés", "Contrôle qualité"],
+      },
+      {
+        id: "laterite",
+        title: "Valorisation des sols latéritiques",
+        period: "2014 — 2015",
+        place: "LEMHaB — 2iE, Burkina Faso",
+        description:
+          "Caractérisation des latérites (granulométrie, Atterberg, CBR) pour les utiliser en couches de chaussée et réduire le recours aux matériaux importés.",
+        tags: ["Latérite", "CBR", "Matériaux locaux"],
+      },
+      {
+        id: "phd",
+        title: "Liant bas carbone à base de cendres recyclées",
+        period: "2020 — 2023",
+        place: "Université Nationale de Yokohama, Japon",
+        description:
+          "Mise au point d'un stabilisant issu de cendres de boues papetières pour renforcer les remblais autour des réseaux enterrés, publié chez Elsevier.",
+        tags: ["Innovation", "Économie circulaire", "Publication"],
+      },
+      {
+        id: "liquefaction",
+        title: "Remblais résistants aux séismes",
+        period: "2023 — 2024",
+        place: "Université Nationale de Yokohama, Japon",
+        description:
+          "Essais triaxiaux et solutions de stabilisation contre la liquéfaction, avec encadrement d'une équipe d'étudiants.",
+        tags: ["Triaxial", "Liquéfaction", "Encadrement"],
       },
     ],
   },
-  marquee: ["Géotechnique", "Stabilisation des sols", "Fondations", "Barrages", "Routes", "Éco-matériaux", "Essais triaxiaux", "Coopération internationale"],
+  marquee: ["Études géotechniques", "Fondations", "Routes", "Barrages", "Contrôle qualité", "Matériaux locaux", "Assistance à maîtrise d'ouvrage", "Afrique de l'Ouest"],
   experience: {
     title: "Parcours",
     text: "Plus de huit ans entre bureaux d'études, chantiers, laboratoires et coopération internationale.",
@@ -231,8 +241,8 @@ export const fr: Dictionary = {
     ],
   },
   research: {
-    title: "Recherche & distinctions",
-    text: "Des travaux publiés sur les matériaux de sol durables, récompensés au Japon et soutenus par la JICA.",
+    title: "Expertise scientifique",
+    text: "Une expertise validée par des publications internationales et reconnue par la JICA.",
     publicationsTitle: "Publications",
     publications: [
       {

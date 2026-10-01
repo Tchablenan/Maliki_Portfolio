@@ -1,4 +1,9 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../app";
+@source "../components";
+@source not "../app/admin";
+@source not "../components/ui";
+@source not "../components/admin";
 
 /* Dark mode is driven by the `dark` class on <html> (see ThemeScript). */
 @custom-variant dark (&:where(.dark, .dark *));

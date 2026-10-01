@@ -2,12 +2,13 @@ import Image from "next/image";
 
 import { ContactForm } from "@/components/ContactForm";
 import { MailIcon, MapPinIcon, PhoneIcon } from "@/components/Icons";
-import { profileData } from "@/data/profile";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/types";
+import { phoneHref, type SiteSettings } from "@/lib/settings";
 
 const circle = "grid size-[52px] shrink-0 place-items-center rounded-full border border-white/40 text-white transition-colors duration-500 group-hover:border-accent group-hover:text-accent";
 
-export function Contact({ t }: { t: Dictionary["contact"] }) {
+export function Contact({ t, settings, lang }: { t: Dictionary["contact"]; settings: SiteSettings; lang: Locale }) {
   return (
     <section id="contact" className="relative overflow-hidden py-20 md:py-[100px]">
       <div className="site-container">
@@ -21,7 +22,7 @@ export function Contact({ t }: { t: Dictionary["contact"] }) {
             <p className="max-w-md text-lg text-white/80">{t.text}</p>
 
             <ul className="mt-6 flex flex-col gap-5">
-              {profileData.emails.map((email) => (
+              {settings.emails.map((email) => (
                 <li key={email}>
                   <a href={`mailto:${email}`} className="group flex items-center gap-4 font-display text-base [overflow-wrap:anywhere] sm:text-2xl">
                     <span className={circle}>
@@ -32,11 +33,11 @@ export function Contact({ t }: { t: Dictionary["contact"] }) {
                 </li>
               ))}
               <li>
-                <a href={profileData.phone.href} className="group flex items-center gap-4 font-display text-base sm:text-2xl">
+                <a href={phoneHref(settings.phone)} className="group flex items-center gap-4 font-display text-base sm:text-2xl">
                   <span className={circle}>
                     <PhoneIcon size={22} />
                   </span>
-                  <span className="transition-colors duration-500 group-hover:text-accent">{profileData.phone.display}</span>
+                  <span className="transition-colors duration-500 group-hover:text-accent">{settings.phone}</span>
                 </a>
               </li>
               <li className="flex items-center gap-4 text-base text-white/80">
@@ -51,7 +52,7 @@ export function Contact({ t }: { t: Dictionary["contact"] }) {
           <div className="relative bg-bg p-6 sm:p-10 lg:my-12 lg:mr-12">
             <h3 className="font-display text-3xl text-fg">{t.formTitle}</h3>
             <p className="mt-3 mb-8 text-base text-muted">{t.formText}</p>
-            <ContactForm t={t} />
+            <ContactForm t={t} lang={lang} />
           </div>
         </div>
       </div>
