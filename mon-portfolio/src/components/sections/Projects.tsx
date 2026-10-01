@@ -1,10 +1,12 @@
 import Image from "next/image";
 
 import { ArrowUpRightIcon } from "@/components/Icons";
-import { projectVisuals } from "@/data/profile";
+import { defaultProjectImages } from "@/data/profile";
 import type { Dictionary } from "@/i18n/types";
+import { pickImage } from "@/lib/media";
+import type { SiteSettings } from "@/lib/settings";
 
-export function Projects({ t }: { t: Dictionary["projects"] }) {
+export function Projects({ t, media }: { t: Dictionary["projects"]; media: SiteSettings["projects"] }) {
   return (
     <section id="projects" className="relative overflow-hidden py-20 md:py-[100px]">
       <Image src="/decor/pix-black-h.png" alt="" width={121} height={61} className="deco absolute top-0 right-[120px] hidden md:block" />
@@ -22,8 +24,10 @@ export function Projects({ t }: { t: Dictionary["projects"] }) {
 
         <ol className="mt-16 flex flex-col gap-16 md:gap-20">
           {t.items.map((project, i) => {
-            const visual = projectVisuals[project.id];
-            const isGif = visual.image.src.endsWith(".gif");
+            const visual = media[project.id] ?? { image: null, fit: "cover" as const, href: "" };
+            const image = pickImage(visual.image, defaultProjectImages[project.id]);
+            const isStatic = typeof image === "object" && image !== null;
+            const isGif = (isStatic ? image.src : (image ?? "")).toLowerCase().endsWith(".gif");
             return (
               <li key={project.id} data-reveal className="group grid items-start gap-8 lg:grid-cols-2 lg:gap-16">
                 <div className="flex flex-col gap-6 sm:flex-row sm:gap-8">
@@ -63,14 +67,19 @@ export function Projects({ t }: { t: Dictionary["projects"] }) {
                 </div>
 
                 <div className={`relative aspect-[4/3] overflow-hidden ${visual.fit === "contain" ? "bg-white p-6 ring-1 ring-line md:p-10" : "bg-field"}`}>
-                  <Image
-                    src={visual.image}
-                    alt={project.title}
-                    placeholder={isGif ? "empty" : "blur"}
-                    unoptimized={isGif}
-                    sizes="(min-width: 1024px) 620px, 100vw"
-                    className={`h-full w-full transition-transform duration-700 group-hover:scale-105 ${visual.fit === "contain" ? "object-contain" : "object-cover"}`}
-                  />
+                  {image && (
+                    <div className="relative size-full">
+                      <Image
+                        src={image}
+                        alt={project.title}
+                        fill
+                        placeholder={isStatic && !isGif ? "blur" : "empty"}
+                        unoptimized={isGif}
+                        sizes="(min-width: 1024px) 620px, 100vw"
+                        className={`transition-transform duration-700 group-hover:scale-105 ${visual.fit === "contain" ? "object-contain" : "object-cover"}`}
+                      />
+                    </div>
+                  )}
                 </div>
               </li>
             );

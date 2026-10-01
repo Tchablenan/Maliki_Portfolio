@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-import type { SocialId } from "@/data/profile";
+import type { SocialId } from "@/lib/settings";
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 

@@ -5,18 +5,22 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { CloseIcon, MenuIcon, MoonIcon, SocialIcon, SunIcon } from "@/components/Icons";
-import { profileData, socials } from "@/data/profile";
+import type { StaticImageData } from "next/image";
+
 import { localeLabels, locales, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/types";
+import { phoneHref, socialLinks, type SiteSettings } from "@/lib/settings";
 
 interface HeaderProps {
   lang: Locale;
   nav: Dictionary["nav"];
+  settings: SiteSettings;
+  photo: string | StaticImageData;
 }
 
 function Logo({ lang }: { lang: Locale }) {
   return (
-    <Link href={`/${lang}#home`} className="font-display text-3xl leading-none md:text-[40px]" aria-label={profileData.name}>
+    <Link href={`/${lang}#home`} className="font-display text-3xl leading-none md:text-[40px]" aria-label="Dr Maliki Djandjieme">
       <span className="text-fg">Dr </span>
       <span className="text-accent">Maliki.</span>
     </Link>
@@ -63,7 +67,9 @@ function LanguageSwitcher({ lang, label, className = "" }: { lang: Locale; label
   );
 }
 
-export function Header({ lang, nav }: HeaderProps) {
+export function Header({ lang, nav, settings, photo }: HeaderProps) {
+  const socials = socialLinks(settings);
+  const email = settings.emails[0] ?? "";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -152,7 +158,9 @@ export function Header({ lang, nav }: HeaderProps) {
           <Image src="/decor/squiggle-right.png" alt="" width={194} height={124} className="deco absolute top-[2%] right-0 z-10 w-[150px]" />
           <Image src="/decor/pix-blue-4.png" alt="" width={60} height={120} className="absolute right-0 bottom-[45%] z-10 w-12" />
           <div className="arch mx-auto h-[min(800px,92vh)] max-w-[470px]">
-            <Image src={profileData.images.profile} alt="" sizes="470px" className="mt-10 h-full w-full object-cover object-top" />
+            <div className="relative mt-10 size-full">
+              <Image src={photo} alt="" fill sizes="470px" className="object-cover object-top" />
+            </div>
           </div>
         </div>
 
@@ -163,11 +171,11 @@ export function Header({ lang, nav }: HeaderProps) {
           <div className="mt-36 ml-12 flex max-w-sm flex-col items-start">
             <p className="font-display text-4xl leading-tight text-fg">{nav.menuContactTitle}</p>
             <p className="mt-5 text-lg text-fg">{nav.menuContactText}</p>
-            <a href={`mailto:${profileData.emails[0]}`} className="mt-10 font-display text-2xl break-all text-fg transition-colors hover:text-accent">
-              {profileData.emails[0]}
+            <a href={`mailto:${email}`} className="mt-10 font-display text-2xl break-all text-fg transition-colors hover:text-accent">
+              {email}
             </a>
-            <a href={profileData.phone.href} className="mt-3 font-display text-2xl text-fg transition-colors hover:text-accent">
-              {profileData.phone.display}
+            <a href={phoneHref(settings.phone)} className="mt-3 font-display text-2xl text-fg transition-colors hover:text-accent">
+              {settings.phone}
             </a>
             <p className="mt-14 font-display text-3xl text-fg">{nav.follow}</p>
             <div className="mt-5 flex flex-wrap gap-4">

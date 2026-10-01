@@ -1,6 +1,8 @@
+import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { defaultLocale, hasLocale, locales, type Locale } from "@/i18n/config";
+import { isSupabaseConfigured, supabaseKey, supabaseUrl } from "@/lib/supabase/config";
 
 /** Picks the best supported locale from the Accept-Language header. */
 function preferredLocale(request: NextRequest): Locale {
@@ -18,8 +20,44 @@ function preferredLocale(request: NextRequest): Locale {
   return ranked.find((entry) => hasLocale(entry.base))?.base as Locale | undefined ?? defaultLocale;
 }
 
-export function proxy(request: NextRequest) {
+/**
+ * Back office: refreshes the Supabase session cookies and sends visitors without a session
+ * to the login page. The admin role itself is checked server-side on every page and action.
+ */
+async function adminProxy(request: NextRequest) {
+  const isLogin = request.nextUrl.pathname === "/admin/login";
+  if (!isSupabaseConfigured) {
+    if (isLogin) return NextResponse.next();
+    return NextResponse.redirect(new URL("/admin/login?error=config", request.url));
+  }
+
+  let response = NextResponse.next({ request });
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
+    cookies: {
+      getAll: () => request.cookies.getAll(),
+      setAll: (toSet) => {
+        toSet.forEach(({ name, value }) => request.cookies.set(name, value));
+        response = NextResponse.next({ request });
+        toSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+      },
+    },
+  });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user && !isLogin) {
+    const redirect = NextResponse.redirect(new URL("/admin/login", request.url));
+    response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
+    return redirect;
+  }
+  return response;
+}
+
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) return adminProxy(request);
+
   const hasPrefix = locales.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
   if (hasPrefix) return;
 

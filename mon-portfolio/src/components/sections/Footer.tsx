@@ -1,9 +1,10 @@
 import { ArrowUpIcon, AsteriskIcon, SocialIcon } from "@/components/Icons";
-import { profileData, socials } from "@/data/profile";
 import type { Dictionary } from "@/i18n/types";
+import { socialLinks, type SiteSettings } from "@/lib/settings";
 
-export function Footer({ t }: { t: Dictionary["footer"] }) {
+export function Footer({ t, settings }: { t: Dictionary["footer"]; settings: SiteSettings }) {
   const year = new Date().getFullYear();
+  const socials = socialLinks(settings);
 
   return (
     <footer className="relative overflow-hidden pt-10">
@@ -31,7 +32,7 @@ export function Footer({ t }: { t: Dictionary["footer"] }) {
 
         <div className="mt-10 flex flex-col items-start justify-between gap-4 text-base text-muted sm:flex-row sm:items-center">
           <p>
-            © {year} {profileData.name}. {t.rights}
+            © {year} {settings.name}. {t.rights}
           </p>
           <a href="#home" className="inline-flex items-center gap-2 transition-colors hover:text-accent">
             {t.backToTop}

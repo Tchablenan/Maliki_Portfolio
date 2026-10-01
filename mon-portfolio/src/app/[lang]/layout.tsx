@@ -5,9 +5,9 @@ import { DM_Sans, Marcellus, Noto_Sans_JP, Noto_Serif_JP } from "next/font/googl
 import { CustomCursor } from "@/components/CustomCursor";
 import { RevealObserver } from "@/components/RevealObserver";
 import { ThemeScript } from "@/components/ThemeScript";
-import { profileData } from "@/data/profile";
+import { defaultImages, site } from "@/data/profile";
 import { hasLocale, localeLabels, locales } from "@/i18n/config";
-import { getDictionary } from "@/i18n/get-dictionary";
+import { getSiteContent, getSiteSettings } from "@/lib/site-data";
 
 import "../globals.css";
 
@@ -33,14 +33,15 @@ export const viewport: Viewport = {
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
-  const dict = await getDictionary(lang);
+  const [dict, settings] = await Promise.all([getSiteContent(lang), getSiteSettings()]);
+  const ogImage = settings.media.heroPhoto ?? defaultImages.heroPhoto.src;
 
   return {
-    metadataBase: new URL(profileData.siteUrl),
+    metadataBase: new URL(site.url),
     title: dict.meta.title,
     description: dict.meta.description,
     keywords: dict.meta.keywords,
-    authors: [{ name: profileData.name }],
+    authors: [{ name: settings.name }],
     alternates: {
       canonical: `/${lang}`,
       languages: Object.fromEntries(locales.map((l) => [localeLabels[l].htmlLang, `/${l}`])),
@@ -50,9 +51,9 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       title: dict.meta.title,
       description: dict.meta.description,
       url: `/${lang}`,
-      siteName: profileData.name,
+      siteName: settings.name,
       locale: localeLabels[lang].og,
-      images: [{ url: profileData.images.profile.src, width: 712, height: 712, alt: dict.hero.photoAlt }],
+      images: [{ url: ogImage, alt: dict.hero.photoAlt }],
     },
     twitter: {
       card: "summary",

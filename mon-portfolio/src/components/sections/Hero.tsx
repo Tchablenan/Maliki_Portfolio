@@ -1,11 +1,15 @@
 import Image from "next/image";
 
 import { DownloadIcon, SocialIcon } from "@/components/Icons";
-import { profileData, socials } from "@/data/profile";
+import { defaultImages, site } from "@/data/profile";
 import type { Dictionary } from "@/i18n/types";
+import { pickImage } from "@/lib/media";
 import { revealDelay } from "@/lib/reveal";
+import { socialLinks, type SiteSettings } from "@/lib/settings";
 
-export function Hero({ t }: { t: Dictionary["hero"] }) {
+export function Hero({ t, settings }: { t: Dictionary["hero"]; settings: SiteSettings }) {
+  const socials = socialLinks(settings);
+  const photo = pickImage(settings.media.heroPhoto, defaultImages.heroPhoto) ?? defaultImages.heroPhoto;
   return (
     <section id="home" className="relative overflow-hidden pt-28 pb-20 md:pt-36 lg:pb-28">
       <Image src="/decor/pix-blue-2.png" alt="" width={30} height={90} className="absolute right-0 bottom-0 hidden md:block" />
@@ -13,10 +17,12 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
       <div className="site-container grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         {/* Copy */}
         <div className="flex flex-col items-start gap-6 md:gap-7">
-          <p className="glass flex items-center gap-3 rounded-full px-5 py-2 text-sm font-medium text-fg">
-            <span className="online-dot" aria-hidden />
-            {t.badge}
-          </p>
+          {settings.available && (
+            <p className="glass flex items-center gap-3 rounded-full px-5 py-2 text-sm font-medium text-fg">
+              <span className="online-dot" aria-hidden />
+              {t.badge}
+            </p>
+          )}
           <p className="text-xs font-semibold tracking-[0.2em] text-accent uppercase md:text-sm">{t.kicker}</p>
           <h1 className="font-display text-[clamp(2.6rem,5.2vw,4.75rem)] leading-[1.08] text-fg">{t.headline}</h1>
           <p className="max-w-xl text-lg leading-8 text-muted md:text-xl">
@@ -30,7 +36,7 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
               {t.cta}
             </a>
             <a
-              href={profileData.cv}
+              href={settings.media.cv || site.defaultCv}
               download
               className="inline-flex items-center gap-2 rounded-full border-2 border-fg px-7 py-3 text-lg font-medium text-fg transition-colors duration-500 hover:bg-fg hover:text-bg"
             >
@@ -53,11 +59,11 @@ export function Hero({ t }: { t: Dictionary["hero"] }) {
           <div aria-hidden className="absolute top-5 right-0 bottom-0 left-5 rounded-t-[240px] bg-accent" />
           <div className="relative aspect-[4/5] overflow-hidden rounded-t-[240px] bg-field">
             <Image
-              src={profileData.images.profile}
+              src={photo}
               alt={t.photoAlt}
               fill
               priority
-              placeholder="blur"
+              placeholder={typeof photo === "string" ? "empty" : "blur"}
               sizes="(min-width: 1024px) 420px, 90vw"
               className="object-cover object-[50%_20%]"
             />

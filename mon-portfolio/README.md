@@ -56,3 +56,19 @@ src/
 
 Dans les réglages du projet Vercel : **Root Directory** = `mon-portfolio`.
 Le fichier `vercel.json` force le framework Next.js et le dossier de sortie `.next`, même si le projet Vercel est encore réglé sur « Vite » (sortie `dist`).
+
+## Back-office (`/admin`)
+
+Back-office built with the Metronic 9 template (Layout 1) on Supabase: site texts in FR/EN/JA, references, photos and CV, contact messages and visit statistics.
+
+### Initial setup (once)
+
+1. **Supabase → SQL Editor**: run `supabase/schema.sql`, then `supabase/seed.sql` (initial content; regenerate it with `npm run db:seed`).
+2. **Authentication → Users → Add user**: create the administrator account (e-mail + password).
+3. **SQL Editor**: `insert into public.admins (email) values ('your-email@example.com');`
+4. **Authentication → Sign In / Providers**: disable "Allow new users to sign up".
+5. **Vercel → Settings → Environment Variables** (and `.env.local` locally):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publishable / anon key — **never** the `service_role` key)
+
+Without these variables the public site keeps running on its bundled content and the contact form goes through Formspree.

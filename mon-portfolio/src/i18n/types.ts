@@ -1,4 +1,4 @@
-import type { ProjectId, ServiceIcon } from "@/data/profile";
+import type { ServiceIcon } from "@/data/profile";
 
 export interface NavItem {
   id: string;
@@ -13,7 +13,7 @@ export interface Service {
 }
 
 export interface Project {
-  id: ProjectId;
+  id: string;
   title: string;
   period: string;
   place: string;

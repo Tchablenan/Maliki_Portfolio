@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 
-import { profileData } from "@/data/profile";
+import { sendContactMessage } from "@/app/actions/contact";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/types";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -11,7 +12,7 @@ const field =
   "w-full border border-transparent bg-field px-4 py-3.5 text-base text-fg placeholder:text-muted transition-colors focus:border-accent focus:outline-none";
 const label = "mb-2 block text-sm font-medium text-fg";
 
-export function ContactForm({ t }: { t: Dictionary["contact"] }) {
+export function ContactForm({ t, lang }: { t: Dictionary["contact"]; lang: Locale }) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -19,12 +20,8 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
     const form = event.currentTarget;
     setStatus("sending");
     try {
-      const response = await fetch(profileData.formEndpoint, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(form),
-      });
-      if (!response.ok) throw new Error(`Formspree responded ${response.status}`);
+      const result = await sendContactMessage(new FormData(form));
+      if (!result.ok) throw new Error("Message not sent");
       form.reset();
       setStatus("success");
     } catch {
@@ -34,6 +31,9 @@ export function ContactForm({ t }: { t: Dictionary["contact"] }) {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-5">
+      <input type="hidden" name="lang" value={lang} />
+      {/* Honeypot: hidden from people, tempting for bots */}
+      <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] size-px opacity-0" />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={label}>
