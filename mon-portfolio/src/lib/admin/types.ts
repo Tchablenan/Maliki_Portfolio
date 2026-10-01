@@ -7,6 +7,14 @@ export interface ContactMessage {
   locale: string | null;
   is_read: boolean;
   created_at: string;
+  replies?: MessageReply[];
+}
+
+export interface MessageReply {
+  id: string;
+  subject: string;
+  body: string;
+  sent_at: string;
 }
 
 export function formatDate(iso: string, withTime = true) {

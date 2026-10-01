@@ -1,7 +1,7 @@
 'use client';
 
 import { useOptimistic, useState, useTransition } from 'react';
-import { Inbox, Mail, MailOpen, Reply, Trash2 } from 'lucide-react';
+import { Inbox, Mail, MailOpen, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { deleteMessage, setMessageRead } from '@/app/admin/actions/messages';
@@ -9,12 +9,14 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { formatDate, type ContactMessage } from '@/lib/admin/types';
+
+import { ReplyComposer } from './reply-composer';
 import { cn } from '@/lib/utils';
 
 type Filter = 'all' | 'unread';
 type Change = { type: 'read'; id: string; value: boolean } | { type: 'delete'; id: string };
 
-export function MessagesInbox({ messages }: { messages: ContactMessage[] }) {
+export function MessagesInbox({ messages, canSend, sender }: { messages: ContactMessage[]; canSend: boolean; sender: string }) {
   const [list, apply] = useOptimistic(messages, (state, change: Change) =>
     change.type === 'delete' ? state.filter((m) => m.id !== change.id) : state.map((m) => (m.id === change.id ? { ...m, is_read: change.value } : m)),
   );
@@ -131,12 +133,25 @@ export function MessagesInbox({ messages }: { messages: ContactMessage[] }) {
               </div>
             </header>
             <p className="grow p-5 text-sm leading-7 whitespace-pre-wrap text-foreground">{selected.message}</p>
+            {(selected.replies ?? []).length > 0 && (
+              <section className="border-t border-border bg-muted/30 p-5">
+                <h3 className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">Vos réponses</h3>
+                <ol className="flex flex-col gap-3">
+                  {[...(selected.replies ?? [])]
+                    .sort((a, b) => a.sent_at.localeCompare(b.sent_at))
+                    .map((reply) => (
+                      <li key={reply.id} className="rounded-lg border border-border bg-background p-4">
+                        <p className="mb-2 text-xs text-muted-foreground">
+                          Envoyée le {formatDate(reply.sent_at)} · {reply.subject}
+                        </p>
+                        <p className="text-sm leading-6 whitespace-pre-wrap">{reply.body}</p>
+                      </li>
+                    ))}
+                </ol>
+              </section>
+            )}
             <footer className="border-t border-border p-5">
-              <Button asChild>
-                <a href={`mailto:${selected.email}?subject=${encodeURIComponent(`Re: ${selected.subject || 'Votre message'}`)}`}>
-                  <Reply /> Répondre par e-mail
-                </a>
-              </Button>
+              <ReplyComposer key={selected.id} message={selected} canSend={canSend} sender={sender} />
             </footer>
           </article>
         ) : (

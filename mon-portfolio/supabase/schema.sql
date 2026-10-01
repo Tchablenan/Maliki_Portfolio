@@ -107,6 +107,30 @@ drop policy if exists "messages: suppression admin" on public.messages;
 create policy "messages: suppression admin" on public.messages
   for delete to authenticated using ((select public.is_admin()));
 
+-- Réponses envoyées depuis le back-office (historique).
+create table if not exists public.message_replies (
+  id uuid primary key default gen_random_uuid(),
+  message_id uuid not null references public.messages (id) on delete cascade,
+  subject text not null check (char_length(subject) <= 200),
+  body text not null check (char_length(body) between 1 and 10000),
+  sent_by text,
+  sent_at timestamptz not null default now()
+);
+create index if not exists message_replies_message_id_idx on public.message_replies (message_id, sent_at);
+alter table public.message_replies enable row level security;
+
+drop policy if exists "réponses: lecture admin" on public.message_replies;
+create policy "réponses: lecture admin" on public.message_replies
+  for select to authenticated using ((select public.is_admin()));
+
+drop policy if exists "réponses: ajout admin" on public.message_replies;
+create policy "réponses: ajout admin" on public.message_replies
+  for insert to authenticated with check ((select public.is_admin()));
+
+drop policy if exists "réponses: suppression admin" on public.message_replies;
+create policy "réponses: suppression admin" on public.message_replies
+  for delete to authenticated using ((select public.is_admin()));
+
 -- ---------------------------------------------------------------------------
 -- Statistiques de visites (une ligne par page vue, sans donnée personnelle).
 -- ---------------------------------------------------------------------------

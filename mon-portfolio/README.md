@@ -71,4 +71,8 @@ Back-office built with the Metronic 9 template (Layout 1) on Supabase: site text
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publishable / anon key — **never** the `service_role` key)
 
+6. *(Optional — replies sent from the back office)* add two **Secret** variables in Vercel:
+   - `GMAIL_USER`: the Gmail address replies are sent from
+   - `GMAIL_APP_PASSWORD`: a Google "app password" (Google account → Security → 2-Step Verification → App passwords)
+
 Without these variables the public site keeps running on its bundled content and the contact form goes through Formspree.
