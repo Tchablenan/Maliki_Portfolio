@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { LoginForm } from "@/components/admin/forms/login-form";
 import { Logo } from "@/components/admin/layout/sidebar-header";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 
 export const metadata: Metadata = { title: "Connexion" };
 
@@ -12,7 +13,9 @@ const notices: Record<string, string> = {
 
 export default async function LoginPage({ searchParams }: PageProps<"/admin/login">) {
   const { error } = await searchParams;
-  const notice = typeof error === "string" ? notices[error] : undefined;
+  // The configuration notice disappears as soon as the keys are set, even on a stale `?error=config` URL.
+  const code = isSupabaseConfigured ? error : "config";
+  const notice = typeof code === "string" && !(code === "config" && isSupabaseConfigured) ? notices[code] : undefined;
 
   return (
     <main className="grid min-h-full w-full lg:grid-cols-2">
