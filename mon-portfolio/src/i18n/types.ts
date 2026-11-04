@@ -127,6 +127,7 @@ export interface Dictionary {
     distinctions: Distinction[];
     membershipsTitle: string;
     memberships: string[];
+    profilesTitle: string;
     readLabel: string;
   };
   education: {

@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { ArrowUpRightIcon } from "@/components/Icons";
 import type { Dictionary } from "@/i18n/types";
+import type { SiteSettings } from "@/lib/settings";
 
 function Row({ year, title, detail, href, linkLabel }: { year: string; title: string; detail: string; href?: string; linkLabel?: string }) {
   return (
@@ -21,7 +22,12 @@ function Row({ year, title, detail, href, linkLabel }: { year: string; title: st
   );
 }
 
-export function Research({ t }: { t: Dictionary["research"] }) {
+export function Research({ t, profiles }: { t: Dictionary["research"]; profiles: SiteSettings["researchProfiles"] }) {
+  const profileLinks = [
+    { label: "Scopus", href: profiles.scopus },
+    { label: "Google Scholar", href: profiles.scholar },
+  ].filter((p) => p.href.trim());
+
   return (
     <section id="research" className="relative isolate overflow-hidden bg-field/60 py-20 md:py-[100px]">
       <Image src="/decor/pix-black-v.png" alt="" width={60} height={121} className="deco absolute top-0 right-0 hidden md:block" />
@@ -44,6 +50,27 @@ export function Research({ t }: { t: Dictionary["research"] }) {
                 </li>
               ))}
             </ul>
+
+            {profileLinks.length > 0 && (
+              <>
+                <h3 className="mt-12 font-display text-2xl text-fg">{t.profilesTitle}</h3>
+                <ul className="mt-5 flex flex-wrap gap-3">
+                  {profileLinks.map((p) => (
+                    <li key={p.label}>
+                      <a
+                        href={p.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
+                      >
+                        {p.label}
+                        <ArrowUpRightIcon size={16} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
 

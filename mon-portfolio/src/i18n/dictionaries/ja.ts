@@ -259,6 +259,7 @@ export const ja: Dictionary = {
     ],
     membershipsTitle: "所属学会",
     memberships: ["JGS — 地盤工学会", "JSCE — 土木学会", "ONIT — トーゴ技術者協会"],
+    profilesTitle: "研究者プロフィール",
     readLabel: "論文を読む",
   },
   education: {

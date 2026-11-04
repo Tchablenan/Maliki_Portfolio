@@ -77,6 +77,7 @@ export function SettingsEditor({ initial }: { initial: Editable }) {
         emails: values.emails.map((e) => e.trim()).filter(Boolean),
         partners: values.partners.map((p) => p.trim()).filter(Boolean),
         socials: values.socials.filter((s) => s.href.trim()),
+        researchProfiles: { scopus: values.researchProfiles.scopus.trim(), scholar: values.researchProfiles.scholar.trim() },
       };
       const result = await saveSettings(clean);
       if (result.ok) {
@@ -138,6 +139,27 @@ export function SettingsEditor({ initial }: { initial: Editable }) {
               </Field>
             );
           })}
+        </Section>
+
+        <Section title="Profils de chercheur" description="Liens affichés dans la section Expertise scientifique. Laissez vide pour masquer.">
+          <Field id="profile-scopus" label="Scopus">
+            <Input
+              id="profile-scopus"
+              type="url"
+              placeholder="https://www.scopus.com/authid/…"
+              value={values.researchProfiles.scopus}
+              onChange={(e) => set('researchProfiles', { ...values.researchProfiles, scopus: e.target.value })}
+            />
+          </Field>
+          <Field id="profile-scholar" label="Google Scholar">
+            <Input
+              id="profile-scholar"
+              type="url"
+              placeholder="https://scholar.google.com/citations?user=…"
+              value={values.researchProfiles.scholar}
+              onChange={(e) => set('researchProfiles', { ...values.researchProfiles, scholar: e.target.value })}
+            />
+          </Field>
         </Section>
 
         <Section title="Institutions & partenaires" description="Le bandeau défilant sous le haut de page.">

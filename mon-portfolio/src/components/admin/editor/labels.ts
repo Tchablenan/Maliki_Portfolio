@@ -56,6 +56,7 @@ export const fieldLabels: Record<string, string> = {
   issuer: 'Décerné par',
   membershipsTitle: 'Titre — affiliations',
   memberships: 'Affiliations',
+  profilesTitle: 'Titre — profils de chercheur',
   readLabel: 'Libellé du lien « lire »',
   degrees: 'Diplômes',
   school: 'Établissement',

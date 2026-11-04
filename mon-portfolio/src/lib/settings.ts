@@ -29,6 +29,8 @@ export interface SiteSettings {
   /** Shows the green “available for new assignments” badge in the hero. */
   available: boolean;
   socials: SocialLink[];
+  /** Public research profiles shown in the research section (empty string hides one). */
+  researchProfiles: { scopus: string; scholar: string };
   /** Institutions scrolling under the hero. */
   partners: string[];
   media: {
@@ -50,6 +52,10 @@ export const defaultSettings: SiteSettings = {
     { id: "x", label: "X (Twitter)", href: "https://x.com/DjandjiemeM" },
     { id: "facebook", label: "Facebook", href: "https://web.facebook.com/malikiotieboame" },
   ],
+  researchProfiles: {
+    scopus: "https://www.scopus.com/authid/detail.uri?authorId=57223015315",
+    scholar: "https://scholar.google.com/citations?user=VOxArlIAAAAJ",
+  },
   partners: ["JICA", "Yokohama National University", "2iE", "JGS", "JSCE", "ONIT Togo", "UEMOA", "TICAD 7", "Elsevier"],
   media: { heroPhoto: null, aboutPhoto: null, cv: null },
   projects: {

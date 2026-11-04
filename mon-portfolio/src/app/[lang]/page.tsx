@@ -39,7 +39,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
     email: settings.emails[0] ? `mailto:${settings.emails[0]}` : undefined,
     alumniOf: ["Yokohama National University", "International Institute for Water and Environmental Engineering (2iE)"],
     worksFor: { "@type": "Organization", name: "JICA" },
-    sameAs: settings.socials.map((s) => s.href),
+    sameAs: [...settings.socials.map((s) => s.href), settings.researchProfiles.scopus, settings.researchProfiles.scholar].filter(Boolean),
   };
 
   return (
@@ -55,7 +55,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         <KeywordBands words={dict.marquee} />
         <Experience t={dict.experience} />
         <Education t={dict.education} />
-        <Research t={dict.research} />
+        <Research t={dict.research} profiles={settings.researchProfiles} />
         <Contact t={dict.contact} settings={settings} lang={lang} />
       </main>
       <Footer t={dict.footer} settings={settings} />

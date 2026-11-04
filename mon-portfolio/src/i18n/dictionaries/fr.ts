@@ -276,6 +276,7 @@ export const fr: Dictionary = {
     ],
     membershipsTitle: "Membre de",
     memberships: ["JGS — Société japonaise de géotechnique", "JSCE — Société japonaise des ingénieurs civils", "ONIT — Ordre national des ingénieurs du Togo"],
+    profilesTitle: "Profils de chercheur",
     readLabel: "Lire l'article",
   },
   education: {
